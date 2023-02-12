@@ -1,13 +1,15 @@
 ## 详情帮助搜索qmake Manual下 Variables, Test Functions 关键字
 
-
 ## 动态库
 TEMPLATE = lib
 
 DEFINES += SPIALEMASK_LIBRARY
 
 CONFIG -= qt
-CONFIG += c11
+CONFIG -= c99
+#CONFIG += c1x
+QMAKE_CFLAGS -= -std=c99
+QMAKE_CFLAGS += -std=c1x
 
 
 ## UI中间文件输出目录
@@ -28,7 +30,7 @@ CONFIG += c11
 INCLUDEPATH += ../../Include
 #DEPENDPATH += ../../Include
 ## Library目录(相对于Build目录)
-#LIBS += -L../../Library/ -lxxx
+#LIBS += -L../../Library/ -lpthread
 ## 执行文件输出目录(相对于Build目录)
 DESTDIR += ../../Release
 
@@ -54,11 +56,16 @@ unix {
 
 ##
 SOURCES += \
+    App/App.c \
+    App/Kit/Utility.c \
+    App/Log/Log.c \
     SpialeMask.c
 
 HEADERS += \
-    SpialeMask.h \
-    SpialeMaskDefines.h
+    App/AppDefines.h \
+    App/Kit/Utility.h \
+    App/Log/Log.h \
+    SpialeMask.h
 
 DISTFILES += \
     QmakePostLink.bat \

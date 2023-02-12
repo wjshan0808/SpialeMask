@@ -5,9 +5,16 @@
 TEMPLATE = subdirs
 
 
+CONFIG -= c99
+#CONFIG += c1x
+QMAKE_CFLAGS -= -std=c99
+QMAKE_CFLAGS += -std=c1x
+
+
 #添加工程项
 SUBDIRS += SpialeMask/SpialeMask.pro \
-           SpialeMaskGUI/SpialeMaskGUI.pro
+           SpialeMaskGUI/SpialeMaskGUI.pro \
+           SpialeMaskTest/SpialeMaskTest.pro
 
 
 #依工程项顺序编译

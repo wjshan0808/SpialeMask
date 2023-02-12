@@ -1,15 +1,10 @@
 ## 详情帮助搜索qmake Manual下 Variables, Test Functions 关键字
 
 
-##
-QT += core gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT -= gui
 
-
-CONFIG -= c99
-#CONFIG += c1x
-QMAKE_CFLAGS -= -std=c99
-QMAKE_CFLAGS += -std=c1x
+CONFIG += c++11 console
+CONFIG -= app_bundle
 
 
 ## UI中间文件输出目录
@@ -48,14 +43,8 @@ DESTDIR += ../../Release
 
 ##
 SOURCES += \
-    SpialeMaskGUI.cpp \
-    main.cpp
-
-HEADERS += \
-    SpialeMaskGUI.h
-
-FORMS += \
-    SpialeMaskGUI.ui
+        main.cpp \
+        testLog.cpp
 
 
 # Default rules for deployment.

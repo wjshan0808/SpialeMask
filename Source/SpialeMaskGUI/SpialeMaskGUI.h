@@ -1,5 +1,6 @@
-#ifndef _C_SPIALEMASKGUI_H_
-#define _C_SPIALEMASKGUI_H_
+#pragma once
+#ifndef _C_SPIALEMASK_GUI_H_
+#define _C_SPIALEMASK_GUI_H_
 
 #include <QWidget>
 #include <QPushButton>
@@ -49,5 +50,5 @@ private:
     Ui::CSpialeMaskGUI* m_pUI = nullptr;
 };
 
-#endif /*_C_SPIALEMASKGUI_H_*/
+#endif /* !_C_SPIALEMASK_GUI_H_ */
 

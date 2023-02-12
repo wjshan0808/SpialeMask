@@ -7,5 +7,7 @@
 MOVE /Y "%1\..\..\Release\libSpialeMask.a" "%~dp0..\..\Library"
 
 ::复制头文件到包含目录
-XCOPY "%1\*.h" "%~dp0..\..\Include" /Y
+ROBOCOPY "%1" "%~dp0..\..\Include" *.h /E
+
+::
 
