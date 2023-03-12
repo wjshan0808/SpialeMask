@@ -9,14 +9,14 @@
 /*
  * 日志等级定义
 */
-#define LOG_LEVEL_FATAL         (0x01)      /*日志 致命 等级*/
-#define LOG_LEVEL_ERROR         (0x02)      /*日志 错误 等级*/
-#define LOG_LEVEL_WARN          (0x04)      /*日志 警告 等级*/
-#define LOG_LEVEL_NOTICE        (0x08)      /*日志 注意 等级*/
-#define LOG_LEVEL_INFO          (0x10)      /*日志 信息 等级*/
-#define LOG_LEVEL_DEBUG         (0x20)      /*日志 调试 等级*/
-#define LOG_LEVEL_HEX           (0x40)      /*日志 Hex 等级*/
-#define LOG_LEVEL_MASK          (0x3F)      /*日志掩码(except hex)*/
+#define LOG_LEVEL_FATAL     (0x01)      /*日志 致命 等级*/
+#define LOG_LEVEL_ERROR     (0x02)      /*日志 错误 等级*/
+#define LOG_LEVEL_WARN      (0x04)      /*日志 警告 等级*/
+#define LOG_LEVEL_NOTICE    (0x08)      /*日志 注意 等级*/
+#define LOG_LEVEL_INFO      (0x10)      /*日志 信息 等级*/
+#define LOG_LEVEL_DEBUG     (0x20)      /*日志 调试 等级*/
+#define LOG_LEVEL_HEX       (0x40)      /*日志 Hex 等级*/
+#define LOG_LEVEL_MASK      (0x3F)      /*日志掩码(except hex)*/
 
 
 /*
@@ -47,27 +47,17 @@ APP_EXTERN_C_BEGIN
 
 
     /*
-     * 日志初始化
+     * 日志注册
      * @param[in] pfnLogArchiver 日志归档函数指针
      * @return  返回-1失败, 否则成功
     */
-    APP_EXPORT int LogInit(LogArchiver pfnLogArchiver);
+    APP_EXPORT int LogRegist(LogArchiver pfnLogArchiver);
 
     /*
      * 日志销毁
      * @return  返回-1失败, 否则成功
     */
     APP_EXPORT int LogDestory();
-
-
-    /*
-     * 日志归档函数范例
-     * @param[in] pLogContent 日志内容
-     * @return
-    */
-    APP_EXPORT void LogArchiveExample(const LogContent* pLogContent);
-
-
 
     /*
      * 记录日志
@@ -80,6 +70,14 @@ APP_EXTERN_C_BEGIN
     APP_EXPORT void Logging(unsigned char ucLevel, const char* szSource, const char* szContent, ...);
 
 
+    /*
+     * 日志归档函数范例
+     * @param[in] pLogContent 日志内容
+     * @return
+    */
+    APP_EXPORT void LogArchiveExample(const LogContent* pLogContent);
+
+
 /*
  * end extern "C"
 */
@@ -89,14 +87,14 @@ APP_EXTERN_C_END
 /*
  * 等级日志记录宏
 */
-#define LOG(L, F, ...)          Logging(L, __FUNCTION__, F, ##__VA_ARGS__)      /*记录日志*/
-#define LOG_HEX(F, ...)         LOG(LOG_LEVEL_HEX,    F, ##__VA_ARGS__)         /*记录Hex日志*/
-#define LOG_DEBUG(F, ...)       LOG(LOG_LEVEL_DEBUG,  F, ##__VA_ARGS__)         /*记录调试日志*/
-#define LOG_INFO(F, ...)        LOG(LOG_LEVEL_INFO,   F, ##__VA_ARGS__)         /*记录信息日志*/
-#define LOG_NOTICE(F, ...)      LOG(LOG_LEVEL_NOTICE, F, ##__VA_ARGS__)         /*记录注意日志*/
-#define LOG_WARN(F, ...)        LOG(LOG_LEVEL_WARN,   F, ##__VA_ARGS__)         /*记录警告日志*/
-#define LOG_ERROR(F, ...)       LOG(LOG_LEVEL_ERROR,  F, ##__VA_ARGS__)         /*记录错误日志*/
-#define LOG_FATAL(F, ...)       LOG(LOG_LEVEL_FATAL,  F, ##__VA_ARGS__)         /*记录致命日志*/
+#define LOG(L,     F, ...)      Logging(L, __FUNCTION__, F, ##__VA_ARGS__)      /*记录日志*/
+#define LOG_HEX(   F, ...)      LOG(LOG_LEVEL_HEX,       F, ##__VA_ARGS__)      /*记录Hex日志*/
+#define LOG_DEBUG( F, ...)      LOG(LOG_LEVEL_DEBUG,     F, ##__VA_ARGS__)      /*记录调试日志*/
+#define LOG_INFO(  F, ...)      LOG(LOG_LEVEL_INFO,      F, ##__VA_ARGS__)      /*记录信息日志*/
+#define LOG_NOTICE(F, ...)      LOG(LOG_LEVEL_NOTICE,    F, ##__VA_ARGS__)      /*记录注意日志*/
+#define LOG_WARN(  F, ...)      LOG(LOG_LEVEL_WARN,      F, ##__VA_ARGS__)      /*记录警告日志*/
+#define LOG_ERROR( F, ...)      LOG(LOG_LEVEL_ERROR,     F, ##__VA_ARGS__)      /*记录错误日志*/
+#define LOG_FATAL( F, ...)      LOG(LOG_LEVEL_FATAL,     F, ##__VA_ARGS__)      /*记录致命日志*/
 
 
 #endif /* !_C_LOG_H_ */
