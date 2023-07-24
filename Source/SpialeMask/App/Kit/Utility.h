@@ -6,7 +6,7 @@
 #include "../AppDefines.h"
 
 
-/*
+/*!
  * 数据转储定义
 */
 #define KIT_DDT_ASCII_DOT       (0x2E)                      /*ASCII码'.'*/
@@ -21,7 +21,7 @@
 APP_EXTERN_C_BEGIN
 
 
-    /*
+    /*!
      * 数据转储表
      * @param[in,out] szDumpTable 数据转储表空间
      * @param[in]     szData 转储数据
@@ -29,7 +29,7 @@ APP_EXTERN_C_BEGIN
      * @param[in]     ucDataColumns 设置转储数据列数
      * @param[in]     ucASCII 是否转储数据ASCII码
      * @param[in]     ucAddress 是否转储数据地址
-     * @return  返回转储表空间大小
+     * @return 返回转储表空间大小
     */
     APP_EXPORT unsigned int DataDumpTable(char* szDumpTable
                                           , const char* szData
@@ -38,7 +38,7 @@ APP_EXTERN_C_BEGIN
                                           , unsigned char ucASCII
                                           , unsigned char ucAddress);
 
-    /*
+    /*!
      * 数据转储表
      * @param[in,out] szDumpTable 数据转储表空间
      * @param[in]     szData 转储数据
@@ -46,7 +46,7 @@ APP_EXTERN_C_BEGIN
      * @param[in]     ucDataColumns 设置转储数据列数
      * @param[in]     ucASCII 是否转储数据ASCII码
      * @param[in]     ucAddress 是否转储数据地址
-     * @return  返回转储表空间大小
+     * @return 返回转储表空间大小
     */
     APP_EXPORT unsigned int DataDumpTable_s(char* szDumpTable
                                             , const char* szData

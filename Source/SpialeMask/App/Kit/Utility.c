@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 
-/*
+/*!
  * 数据转储表
  * @param[in,out] szDumpTable 数据转储表空间
  * @param[in]     szData 转储数据
@@ -11,7 +11,7 @@
  * @param[in]     ucDataColumns 设置转储数据列数
  * @param[in]     ucASCII 是否转储数据ASCII码
  * @param[in]     ucAddress 是否转储数据地址
- * @return  返回转储表空间大小
+ * @return 返回转储表空间大小
 */
 unsigned int DataDumpTable(char* szDumpTable
                            , const char* szData
@@ -160,7 +160,7 @@ unsigned int DataDumpTable(char* szDumpTable
 }
 
 
-/*
+/*!
  * 数据转储表
  * @param[in,out] szDumpTable 数据转储表空间
  * @param[in]     szData 转储数据
@@ -168,7 +168,7 @@ unsigned int DataDumpTable(char* szDumpTable
  * @param[in]     ucDataColumns 设置转储数据列数
  * @param[in]     ucASCII 是否转储数据ASCII码
  * @param[in]     ucAddress 是否转储数据地址
- * @return  返回转储表空间大小
+ * @return 返回转储表空间大小
 */
 unsigned int DataDumpTable_s(char* szDumpTable
                              , const char* szData

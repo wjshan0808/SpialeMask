@@ -5,7 +5,7 @@
 
 #define APP_LIBRARY
 
-/*
+/*!
  * 导入导出符号
 */
 #if defined(_MSC_VER) || defined(WIN64) || defined(_WIN64) || defined(__WIN64__) || defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
@@ -23,7 +23,7 @@
 #endif
 
 
-/*
+/*!
  * C/C++
 */
 #ifdef __cplusplus
@@ -35,8 +35,8 @@
 #endif /* __cplusplus */
 
 
-/*
- * APP标识
+/*!
+ * APP标识码
 */
 #define APP_FLAG_FAILURE        (0xFFFF)        /*失败标识*/
 #define APP_FLAG_SUCCESS        (0x0001)        /*成功标识*/

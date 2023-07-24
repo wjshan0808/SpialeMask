@@ -3,8 +3,12 @@
 
 QT -= gui
 
+CONFIG -= c99
 CONFIG += c++11 console
 CONFIG -= app_bundle
+#CONFIG += c1x
+QMAKE_CFLAGS -= -std=c99
+QMAKE_CFLAGS += -std=c1x
 
 
 ## UI中间文件输出目录
@@ -44,7 +48,8 @@ DESTDIR += ../../Release
 ##
 SOURCES += \
         main.cpp \
-        testLog.cpp
+        testLog.cpp \
+        testString.cpp
 
 
 # Default rules for deployment.

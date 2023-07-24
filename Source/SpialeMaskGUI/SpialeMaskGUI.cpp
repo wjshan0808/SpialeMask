@@ -3,7 +3,7 @@
 
 #include "SpialeMask.h"
 
-/*
+/*!
  * 程序主类
 */
 CSpialeMaskGUI::CSpialeMaskGUI(QWidget* pParent) :
@@ -23,14 +23,14 @@ CSpialeMaskGUI::~CSpialeMaskGUI()
 
 
 
-/*
+/*!
  * 插件检测事件槽
 */
 void CSpialeMaskGUI::onSpialeMaskChecked()
 {
     this->setWindowTitle(QString(" %1 ...").arg(foo(1,2)));
 }
-/*
+/*!
  * 插件检测
 */
 void CSpialeMaskGUI::SpialeMaskCheck()
@@ -42,7 +42,7 @@ void CSpialeMaskGUI::SpialeMaskCheck()
 
 }
 
-/*
+/*!
  * 资源析构
 */
 void CSpialeMaskGUI::Deconstructor()

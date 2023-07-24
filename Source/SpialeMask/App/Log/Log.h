@@ -6,7 +6,7 @@
 #include "../AppDefines.h"
 #include <time.h>
 
-/*
+/*!
  * 日志等级定义
 */
 #define LOG_LEVEL_FATAL     (0x01)      /*日志 致命 等级*/
@@ -19,7 +19,7 @@
 #define LOG_LEVEL_MASK      (0x3F)      /*日志掩码(except hex)*/
 
 
-/*
+/*!
  * 日志内容实体
 */
 typedef struct
@@ -32,7 +32,7 @@ typedef struct
     unsigned char m_ucLevel;        /*日志等级*/
 } __attribute__((packed/*, aligned(1)*/)) LogContent;
 
-/*
+/*!
  * 日志归档函数声明
  * @param[in] pLogContent 日志内容
  * @return
@@ -46,20 +46,20 @@ typedef void(* LogArchiver)(const LogContent* pLogContent);
 APP_EXTERN_C_BEGIN
 
 
-    /*
+    /*!
      * 日志注册
      * @param[in] pfnLogArchiver 日志归档函数指针
-     * @return  返回-1失败, 否则成功
+     * @return 返回-1失败, 否则成功
     */
     APP_EXPORT int LogRegist(LogArchiver pfnLogArchiver);
 
-    /*
+    /*!
      * 日志销毁
-     * @return  返回-1失败, 否则成功
+     * @return 返回-1失败, 否则成功
     */
     APP_EXPORT int LogDestory();
 
-    /*
+    /*!
      * 记录日志
      * @param[in] ucLevel 日志等级
      * @param[in] szSource 记录日志源
@@ -70,7 +70,7 @@ APP_EXTERN_C_BEGIN
     APP_EXPORT void Logging(unsigned char ucLevel, const char* szSource, const char* szContent, ...);
 
 
-    /*
+    /*!
      * 日志归档函数范例
      * @param[in] pLogContent 日志内容
      * @return
@@ -84,7 +84,7 @@ APP_EXTERN_C_BEGIN
 APP_EXTERN_C_END
 
 
-/*
+/*!
  * 等级日志记录宏
 */
 #define LOG(L,     F, ...)      Logging(L, __FUNCTION__, F, ##__VA_ARGS__)      /*记录日志*/

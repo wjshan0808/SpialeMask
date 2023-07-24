@@ -13,7 +13,7 @@ class CSpialeMaskGUI;
 QT_END_NAMESPACE
 
 
-/*
+/*!
  * 程序主类
 */
 class CSpialeMaskGUI : public QWidget
@@ -26,17 +26,17 @@ public:
 
 
 protected Q_SLOTS:
-    /*
+    /*!
      * 插件检测事件槽
     */
     void onSpialeMaskChecked();
 
 private:
-    /*
+    /*!
      * 插件检测
     */
     void SpialeMaskCheck();
-    /*
+    /*!
      * 资源析构
     */
     void Deconstructor();

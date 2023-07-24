@@ -59,12 +59,18 @@ SOURCES += \
     App/App.c \
     App/Kit/Utility.c \
     App/Log/Log.c \
+    Core/Cog.c \
+    Core/Roulette.c \
+    Core/Spiale.c \
     SpialeMask.c
 
 HEADERS += \
     App/AppDefines.h \
     App/Kit/Utility.h \
     App/Log/Log.h \
+    Core/Cog.h \
+    Core/Roulette.h \
+    Core/Spiale.h \
     SpialeMask.h
 
 DISTFILES += \

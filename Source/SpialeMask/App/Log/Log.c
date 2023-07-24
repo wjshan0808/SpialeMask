@@ -9,14 +9,16 @@
 #include <sys/time.h>
 
 
-/*全局静态日志归档函数指针*/
+/*!
+ * 全局静态日志归档函数指针
+*/
 static LogArchiver gs_pfnLogArchiver = NULL;
 
 
-/*
+/*!
  * 日志注册
  * @param[in] pfnLogArchiver 日志归档函数指针
- * @return  返回-1失败, 否则成功
+ * @return 返回-1失败, 否则成功
 */
 int LogRegist(LogArchiver pfnLogArchiver)
 {
@@ -27,9 +29,9 @@ int LogRegist(LogArchiver pfnLogArchiver)
     return APP_FLAG_SUCCESS;
 }
 
-/*
+/*!
  * 日志销毁
- * @return  返回-1失败, 否则成功
+ * @return 返回-1失败, 否则成功
 */
 int LogDestory()
 {
@@ -41,7 +43,7 @@ int LogDestory()
 }
 
 
-/*
+/*!
  * 记录日志
  * @param[in] ucLevel 日志等级
  * @param[in] szSource 记录日志源
@@ -133,7 +135,7 @@ void Logging(unsigned char ucLevel, const char* szSource, const char* szContent,
 }
 
 
-/*
+/*!
  * 日志归档函数范例
  * @param[in] pLogContent 日志内容
  * @return
