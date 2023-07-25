@@ -8,15 +8,14 @@
 
 
 /*!
- * 轮盘
+ * 轮盘结构
 */
 typedef struct
 {
-    unsigned char m_ucCount;                   /*内容长度*/
-    Cog* m_pFirst;
-    Cog* m_pCurrent;
-    Cog* m_pLast;
-}__attribute__((packed)) Roulette;
+    size_t m_uiCount;                   /*轮盘中轮齿的数量*/
+    Cog* m_pAnchor;                     /*轮盘的锚点轮齿*/
+    Cog* m_pCurrent;                    /*轮盘的当前轮齿*/
+} __attribute__((packed)) Roulette;
 
 
 /* begin extern "C" */

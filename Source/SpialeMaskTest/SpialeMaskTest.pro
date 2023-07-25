@@ -48,8 +48,8 @@ DESTDIR += ../../Release
 ##
 SOURCES += \
         main.cpp \
-        testLog.cpp \
-        testString.cpp
+        testCog.cpp \
+        testLog.cpp
 
 
 # Default rules for deployment.

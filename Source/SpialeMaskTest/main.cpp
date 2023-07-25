@@ -1,6 +1,6 @@
 #include <QCoreApplication>
 #include "testLog.cpp"
-#include "testString.cpp"
+#include "testCog.cpp"
 
 
 int main(int argc, char *argv[])
@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
     if(0x01)
     {
-        testString();
+        testCog();
     }
 
     if(0x00)
