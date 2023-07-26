@@ -60,6 +60,7 @@ SOURCES += \
     App/Kit/Utility.c \
     App/Log/Log.c \
     Core/Cog.c \
+    Core/CogChain.c \
     Core/Roulette.c \
     Core/Spiale.c \
     SpialeMask.c
@@ -69,6 +70,7 @@ HEADERS += \
     App/Kit/Utility.h \
     App/Log/Log.h \
     Core/Cog.h \
+    Core/CogChain.h \
     Core/Roulette.h \
     Core/Spiale.h \
     SpialeMask.h
