@@ -12,10 +12,11 @@
 */
 typedef struct
 {
-    size_t m_uiCount;                   /*轮盘中轮齿的数量*/
-    const Cog* m_pCurrent;              /*轮盘的当前轮齿*/
-    const Cog* m_pAnchor;               /*轮盘的锚点轮齿*/
-    CogChain* m_pCogChain;              /*轮盘的轮齿链*/
+    CogChain* m_pCurrent;               /*轮盘中的当前轮齿链*/
+    size_t m_uiCount;                   /*轮盘中轮齿链的数量*/
+    const CogChain* m_pAnchor;          /*轮盘中的锚点轮齿链*/
+    unsigned char m_ucIsNullity;        /*轮盘无效性*/
+    unsigned short m_usIdentity;        /*轮盘标识*/
 
 } __attribute__((packed)) Roulette;
 
@@ -28,12 +29,10 @@ APP_EXTERN_C_BEGIN
     /*!
      * 新建轮盘结构
      * @param[in,out] paRoulette 轮盘结构指针地址
-     * @param[in]     pAnchorCog 锚点轮齿结构常量指针
      * @return 标识码
-     * @remark 不使用时请调用DelRoulette删除
+     * @remark 不使用时请调用DeleteRoulette删除
     */
-    SPIALEMASK_EXPORT int NewRoulette(Roulette** paRoulette
-                                      , const Cog* pAnchorCog);
+    SPIALEMASK_EXPORT int NewRoulette(Roulette** paRoulette);
 
 
     /*!
@@ -41,10 +40,31 @@ APP_EXTERN_C_BEGIN
      * @param[in,out] paRoulette 轮盘结构指针地址
      * @param[in]     pSrcRoulette 源轮盘结构常量指针
      * @return 标识码
-     * @remark 不使用时请调用DelRoulette删除
+     * @remark 不使用时请调用DeleteRoulette删除
     */
     SPIALEMASK_EXPORT int CloneRoulette(Roulette** paRoulette
                                         , const Roulette* pSrcRoulette);
+
+
+    /*!
+     * 追加轮齿到轮盘结构
+     * @param[in,out] pRoulette 轮盘结构指针
+     * @param[in]     szContent 轮齿内容
+     * @return 标识码
+    */
+    SPIALEMASK_EXPORT int AppendCog2Roulette(Roulette* pRoulette
+                                             , const char* szContent);
+
+
+    /*!
+     * 变更轮盘结构无效性
+     * @param[in,out] pRoulette 轮盘结构指针
+     * @param[in]     ucIsNullity 轮盘结构是否无效
+     * @return 标识码
+     * @footnote APP_STATE_*为有效输入值
+    */
+    SPIALEMASK_EXPORT int NullifyRoulette(Roulette* pRoulette
+                                          , unsigned char ucIsNullity);
 
 
     /*!

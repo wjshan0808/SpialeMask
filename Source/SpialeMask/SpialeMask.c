@@ -2,14 +2,39 @@
 
 
 /*!
- * 测试库函数
- * @param[in] iA 参数A
- * @param[in] iB 参数B
- * @return 返回输入参数相加和
+ * 自增标识值
 */
-int foo(int iA, int iB)
-{
+volatile static unsigned int gs_arrValueAutoIncrementIdentity[kaidNone] = { 0x00 };
 
-    return (iA + iB);
+
+
+/*!
+ * 获取自增标识键对应的自增标识值
+ * @param[in]     enKaid 自增标识键
+ * @param[in,out] pValue 自增标识值指针
+ * @return 标识码
+ * @footnote xxx
+*/
+int AutoIncrementIdentity(KeyAutoIncrementIdentity enKaid
+                          , unsigned short* pValue)
+{
+    /*检测指针地址*/
+    if(NULL == pValue)
+    {
+        return APP_FLAG_FAILURE;
+    }
+
+    /*获取自增标识值*/
+    if((kaidNaN >= enKaid) || (enKaid >= kaidNone))
+    {
+        (*pValue) = 0x00;
+    }
+    else
+    {
+        (*pValue) = ++(gs_arrValueAutoIncrementIdentity[enKaid]);
+    }
+
+    /*返回成功*/
+    return APP_FLAG_SUCCESS;
 }
 

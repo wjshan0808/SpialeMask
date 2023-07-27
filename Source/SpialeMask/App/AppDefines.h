@@ -41,6 +41,12 @@
 #define APP_FLAG_FAILURE        (0xFFFF)        /*失败标识*/
 #define APP_FLAG_SUCCESS        (0x0001)        /*成功标识*/
 
+/*!
+ * APP状态码
+*/
+#define APP_STATE_TRUE          (0x01)          /*真状态*/
+#define APP_STATE_FALSE         (0x00)          /*假状态*/
+
 
 
 
