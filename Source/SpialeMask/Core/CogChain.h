@@ -47,12 +47,12 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
-     * 追加轮齿到轮齿链结构
-     * @param[in,out] pLastCogChain 末尾轮齿链结构指针
+     * 插入轮齿到轮齿链结构
+     * @param[in,out] pDstCogChain 目标轮齿链结构指针
      * @param[in,out] pSrcCogChain 源轮齿链结构指针
      * @return 标识码
     */
-    SPIALEMASK_EXPORT int AppendCogChain(CogChain* pTailCogChain
+    SPIALEMASK_EXPORT int InsertCogChain(CogChain* pDstCogChain
                                          , CogChain* pSrcCogChain);
 
 

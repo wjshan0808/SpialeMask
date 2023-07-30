@@ -141,7 +141,7 @@ int AppendCog2Roulette(Roulette* pRoulette
         }
 
         /*追加轮齿到轮齿链结构*/
-        AppendCogChain(pRoulette->m_pAnchor->m_pForward
+        InsertCogChain(pRoulette->m_pAnchor->m_pForward
                        , pCogChain);
 
         /*轮盘中轮齿链的数量*/

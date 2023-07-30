@@ -113,29 +113,41 @@ int CloneCogChain(CogChain** paCogChain
     return APP_FLAG_SUCCESS;
 }
 
+
 /*!
- * 追加轮齿到轮齿链结构
- * @param[in,out] pLastCogChain 末尾轮齿链结构指针
+ * 插入轮齿到轮齿链结构
+ * @param[in,out] pDstCogChain 目标轮齿链结构指针
  * @param[in,out] pSrcCogChain 源轮齿链结构指针
  * @return 标识码
 */
-int AppendCogChain(CogChain* pTailCogChain
+int InsertCogChain(CogChain* pDstCogChain
                    , CogChain* pSrcCogChain)
 {
     /*检测指针*/
-    if(NULL == pTailCogChain)
-    {
-        return APP_FLAG_FAILURE;
-    }
     if(NULL == pSrcCogChain)
     {
         return APP_FLAG_FAILURE;
     }
-
-    /**/
+    if(NULL == pDstCogChain)
     {
-        pSrcCogChain->m_pForward = pTailCogChain;
-        pSrcCogChain->m_pBackward = pTailCogChain->m_pBackward;
+        return APP_FLAG_FAILURE;
+    }
+    if(NULL == pDstCogChain->m_pBackward)
+    {
+        return APP_FLAG_FAILURE;
+    }
+
+    /*赋值轮齿链结构*/
+    {        
+        /*源轮齿链结构*/
+        pSrcCogChain->m_pForward = pDstCogChain;
+        pSrcCogChain->m_pBackward = pDstCogChain->m_pBackward;
+
+        /*目标轮齿链后一个轮齿链结构*/
+        pDstCogChain->m_pBackward->m_pForward = pSrcCogChain;
+
+        /*目标轮齿链结构*/
+        pDstCogChain->m_pBackward = pSrcCogChain;
     }
 
     /*返回成功*/
