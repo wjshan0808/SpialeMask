@@ -44,7 +44,7 @@
 #ifdef __STDC_NO_ATOMICS__
 #error "the header <stdatomic.h> and all of the names provided in it are not provided."
 #else
-#include <stdatomic.h>
+/*#include <stdatomic.h>*/
 #endif /* !__STDC_NO_ATOMICS__ */
 
 

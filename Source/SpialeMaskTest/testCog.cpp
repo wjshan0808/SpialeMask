@@ -11,6 +11,7 @@ void testCog()
     LogRegist(LogArchiveExample);
 
     Cog* pCog = NULL;
+    LOG_INFO("pCog = %p, &pCog = %p.", pCog, &pCog);
 
     /**/
     {

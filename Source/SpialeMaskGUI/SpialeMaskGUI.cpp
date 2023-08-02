@@ -28,7 +28,7 @@ CSpialeMaskGUI::~CSpialeMaskGUI()
 */
 void CSpialeMaskGUI::onSpialeMaskChecked()
 {
-    this->setWindowTitle(QString(" %1 ...").arg(foo(1,2)));
+    //this->setWindowTitle(QString(" %1 ...").arg(foo(1,2)));
 }
 /*!
  * 插件检测

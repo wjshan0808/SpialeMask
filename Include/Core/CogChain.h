@@ -40,19 +40,19 @@ APP_EXTERN_C_BEGIN
      * @param[in,out] paCogChain 轮齿链结构指针地址
      * @param[in]     pSrcCogChain 源轮齿链结构常量指针
      * @return 标识码
-     * @remark 不使用时请调用DeleteCogChain删除
+     * @remark 不使用时请调用CleanCogChain删除
     */
     SPIALEMASK_EXPORT int CloneCogChain(CogChain** paCogChain
                                         , const CogChain* pSrcCogChain);
 
 
     /*!
-     * 追加轮齿到轮齿链结构
-     * @param[in,out] pLastCogChain 末尾轮齿链结构指针
+     * 插入轮齿到轮齿链结构
+     * @param[in,out] pDstCogChain 目标轮齿链结构指针
      * @param[in,out] pSrcCogChain 源轮齿链结构指针
      * @return 标识码
     */
-    SPIALEMASK_EXPORT int AppendCogChain(CogChain* pTailCogChain
+    SPIALEMASK_EXPORT int InsertCogChain(CogChain* pDstCogChain
                                          , CogChain* pSrcCogChain);
 
 
@@ -67,9 +67,18 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
+     * 清空轮齿链结构
+     * @param[in,out] paCogChain 轮齿链结构指针地址
+     * @return 标识码
+    */
+    SPIALEMASK_EXPORT int CleanCogChain(CogChain** paCogChain);
+
+
+    /*!
      * 删除轮齿链结构
      * @param[in,out] paCogChain 轮齿链结构指针地址
      * @return 标识码
+     * @remark 调用DeleteCogChain前请必要修复轮齿链关系
     */
     SPIALEMASK_EXPORT int DeleteCogChain(CogChain** paCogChain);
 

@@ -73,7 +73,7 @@ int NewCogChain(CogChain** paCogChain
  * @param[in,out] paCogChain 轮齿链结构指针地址
  * @param[in]     pSrcCogChain 源轮齿链结构常量指针
  * @return 标识码
- * @remark 不使用时请调用DeleteCogChain删除
+ * @remark 不使用时请调用CleanCogChain删除
 */
 int CloneCogChain(CogChain** paCogChain
              , const CogChain* pSrcCogChain)
@@ -169,10 +169,6 @@ int CountCogChain(const CogChain* pCogChain
     {
         return APP_FLAG_FAILURE;
     }
-    if(NULL == pCogChain->m_pCog)
-    {
-        return APP_FLAG_FAILURE;
-    }
 
     /*空向指针值*/
     {
@@ -189,8 +185,42 @@ int CountCogChain(const CogChain* pCogChain
         /*遍历后一个轮齿*/
         pBackward = pBackward->m_pBackward;
 
-        /*循环遍历终止条件: 轮齿标识相同*/
-    } while((NULL != pBackward) && (NULL != pBackward->m_pCog) && (pBackward->m_pCog->m_usIdentity != pCogChain->m_pCog->m_usIdentity));
+        /*循环遍历终止条件: 轮齿链相同*/
+    } while((NULL != pBackward) && (pCogChain != pBackward));
+
+    /*返回成功*/
+    return APP_FLAG_SUCCESS;
+}
+
+
+/*!
+ * 清空轮齿链结构
+ * @param[in,out] paCogChain 轮齿链结构指针地址
+ * @return 标识码
+*/
+int CleanCogChain(CogChain** paCogChain)
+{
+    /*检测地址指针*/
+    if(NULL == paCogChain)
+    {
+        return APP_FLAG_FAILURE;
+    }
+
+    /*检测轮齿链结构指针*/
+    if(NULL == (*paCogChain))
+    {
+        return APP_FLAG_SUCCESS;
+    }
+
+    /*循环遍历终止条件: 轮齿链相同*/
+    while((*paCogChain) != (*paCogChain)->m_pBackward)
+    {
+        /*后一个轮齿链*/
+        CleanCogChain(&((*paCogChain)->m_pBackward));
+    }
+
+    /*删除轮齿链*/
+    DeleteCogChain(paCogChain);
 
     /*返回成功*/
     return APP_FLAG_SUCCESS;
@@ -201,6 +231,7 @@ int CountCogChain(const CogChain* pCogChain
  * 删除轮齿链结构
  * @param[in,out] paCogChain 轮齿链结构指针地址
  * @return 标识码
+ * @remark 调用DeleteCogChain前请必要修复轮齿链关系
 */
 int DeleteCogChain(CogChain** paCogChain)
 {
@@ -216,15 +247,16 @@ int DeleteCogChain(CogChain** paCogChain)
         return APP_FLAG_SUCCESS;
     }
 
-    /*释放内存
+    /*释放轮齿内存*/
+    DeleteCog(&((*paCogChain)->m_pCog));
+
+    /*释放轮齿链内存*/
     free((*paCogChain));
     {
         (*paCogChain) = NULL;
-    }*/
+    }
 
     /*返回成功*/
     return APP_FLAG_SUCCESS;
 }
-
-
 
