@@ -57,6 +57,16 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
+     * 合并轮齿链结构
+     * @param[in,out] pDstCogChain 目标轮齿链结构指针
+     * @param[in,out] pSrcCogChain 源轮齿链结构指针
+     * @return 标识码
+    */
+    SPIALEMASK_EXPORT int JoinCogChain(CogChain* pDstCogChain
+                                       , CogChain* pSrcCogChain);
+
+
+    /*!
      * 获取轮齿链中轮齿的数量
      * @param[in]     pCogChain 轮齿链结构常量指针
      * @param[in,out] pCount 轮齿数量指针

@@ -49,6 +49,7 @@ DESTDIR += ../../Release
 SOURCES += \
         main.cpp \
         testCog.cpp \
+        testCogChain.cpp \
         testLog.cpp
 
 

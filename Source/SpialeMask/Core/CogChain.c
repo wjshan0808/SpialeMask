@@ -1,6 +1,17 @@
 #include "CogChain.h"
 
 
+
+/*!
+ * 清空轮齿链结构
+ * @param[in,out] paCogChain 轮齿链结构指针地址
+ * @param[in,out] paBackward 后一个轮齿链结构指针地址
+ * @return 标识码
+*/
+int InlineCleanCogChain(CogChain** paCogChain
+                        , CogChain** paBackward);
+
+
 /*!
  * 新建轮齿链结构
  * @param[in,out] paCogChain 轮齿链结构指针地址
@@ -76,7 +87,7 @@ int NewCogChain(CogChain** paCogChain
  * @remark 不使用时请调用CleanCogChain删除
 */
 int CloneCogChain(CogChain** paCogChain
-             , const CogChain* pSrcCogChain)
+                  , const CogChain* pSrcCogChain)
 {
     /*检测指针地址*/
     if(NULL == paCogChain)
@@ -107,7 +118,7 @@ int CloneCogChain(CogChain** paCogChain
             /*克隆轮齿*/
             Cog* pCog = NULL;
             if(APP_FLAG_SUCCESS != CloneCog((&pCog)
-                                          , pSrcBackward->m_pCog))
+                                            , pSrcBackward->m_pCog))
             {
                 /*清空轮齿链*/
                 CleanCogChain(paCogChain);
@@ -195,15 +206,59 @@ int InsertCogChain(CogChain* pDstCogChain
 
     /*赋值轮齿链结构*/
     {        
-        /*源轮齿链结构*/
+        /*赋值源轮齿链结构*/
         pSrcCogChain->m_pForward = pDstCogChain;
         pSrcCogChain->m_pBackward = pDstCogChain->m_pBackward;
 
-        /*目标轮齿链后一个轮齿链结构*/
+        /*赋值目标轮齿链结构*/
         pDstCogChain->m_pBackward->m_pForward = pSrcCogChain;
-
-        /*目标轮齿链结构*/
         pDstCogChain->m_pBackward = pSrcCogChain;
+    }
+
+    /*返回成功*/
+    return APP_FLAG_SUCCESS;
+}
+
+
+/*!
+ * 合并轮齿链结构
+ * @param[in,out] pDstCogChain 目标轮齿链结构指针
+ * @param[in,out] pSrcCogChain 源轮齿链结构指针
+ * @return 标识码
+*/
+int JoinCogChain(CogChain* pDstCogChain
+                 , CogChain* pSrcCogChain)
+{
+    /*检测指针*/
+    if(NULL == pSrcCogChain)
+    {
+        return APP_FLAG_FAILURE;
+    }
+    if(NULL == pSrcCogChain->m_pForward)
+    {
+        return APP_FLAG_FAILURE;
+    }
+    if(NULL == pDstCogChain)
+    {
+        return APP_FLAG_FAILURE;
+    }
+    if(NULL == pDstCogChain->m_pForward)
+    {
+        return APP_FLAG_FAILURE;
+    }
+
+    /*赋值轮齿链结构*/
+    {
+        /*目标轮齿链前一个轮齿链结构*/
+        CogChain* pForward = pDstCogChain->m_pForward;
+
+        /*赋值目标轮齿链结构*/
+        pDstCogChain->m_pForward->m_pBackward = pSrcCogChain;
+        pDstCogChain->m_pForward = pSrcCogChain->m_pForward;
+
+        /*赋值源轮齿链结构*/
+        pSrcCogChain->m_pForward->m_pBackward = pDstCogChain;
+        pSrcCogChain->m_pForward = pForward;
     }
 
     /*返回成功*/
@@ -268,18 +323,42 @@ int CleanCogChain(CogChain** paCogChain)
         return APP_FLAG_SUCCESS;
     }
 
-    /*循环遍历终止条件: 轮齿链相同*/
-    while((*paCogChain) != (*paCogChain)->m_pBackward)
+    /*删除轮齿链*/
+    return InlineCleanCogChain(paCogChain
+                               , paCogChain);
+}
+int InlineCleanCogChain(CogChain** paCogChain
+                        , CogChain** paBackward)
+{
+    /*检测地址指针*/
+    if(NULL == paCogChain)
     {
-        /*后一个轮齿链*/
-        CleanCogChain(&((*paCogChain)->m_pBackward));
+        return APP_FLAG_FAILURE;
+    }
+    if(NULL == paBackward)
+    {
+        return APP_FLAG_FAILURE;
+    }
+
+    /*检测轮齿链结构指针*/
+    if(NULL == (*paCogChain))
+    {
+        return APP_FLAG_SUCCESS;
+    }
+    if(NULL == (*paBackward))
+    {
+        return APP_FLAG_SUCCESS;
+    }
+
+    /*循环遍历终止条件: 轮齿链相同*/
+    if((*paCogChain) != (*paBackward)->m_pBackward)
+    {
+        InlineCleanCogChain(paCogChain
+                            , &((*paBackward)->m_pBackward));
     }
 
     /*删除轮齿链*/
-    DeleteCogChain(paCogChain);
-
-    /*返回成功*/
-    return APP_FLAG_SUCCESS;
+    return DeleteCogChain(paBackward);
 }
 
 

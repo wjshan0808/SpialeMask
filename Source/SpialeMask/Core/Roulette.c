@@ -68,7 +68,7 @@ int NewRoulette(Roulette** paRoulette)
  * @remark 不使用时请调用DeleteRoulette删除
 */
 int CloneRoulette(Roulette** paRoulette
-             , const Roulette* pSrcRoulette)
+                  , const Roulette* pSrcRoulette)
 {
     /*检测指针地址*/
     if(NULL == paRoulette)
