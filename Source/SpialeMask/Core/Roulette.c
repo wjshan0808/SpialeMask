@@ -29,14 +29,14 @@ int NewRoulette(Roulette** paRoulette)
 
     /*赋值轮盘结构*/
     {
-        /*轮盘中轮齿链的数量*/
-        pRoulette->m_uiCount = 0x00;
-
         /*轮盘中的锚点轮齿链*/
         pRoulette->m_pAnchor = NULL;
 
         /*轮盘中的当前轮齿链*/
         pRoulette->m_pCurrent = NULL;
+
+        /*轮盘中轮齿链的数量*/
+        pRoulette->m_uiCount = 0x00;
 
         /*轮盘标识*/
         unsigned short usIdentity = 0x00;
@@ -47,7 +47,6 @@ int NewRoulette(Roulette** paRoulette)
 
         /*轮盘无效性*/
         pRoulette->m_ucIsNullity = APP_STATE_FALSE;
-
     }
 
     /*定向指针地址*/
@@ -91,12 +90,47 @@ int CloneRoulette(Roulette** paRoulette
     Roulette* pRoulette = calloc(0x01, sizeof(Roulette));
     if(NULL == pRoulette)
     {
+        /*返回失败*/
         return APP_FLAG_FAILURE;
     }
 
-    /*复制源轮盘内容*/
+    /*源轮盘中的轮齿链*/
+    CogChain* pCogChain = NULL;
+    if(APP_FLAG_SUCCESS != CloneCogChain((&pCogChain)
+                                         , pSrcRoulette->m_pAnchor))
     {
-        //...
+        /*删除轮盘结构*/
+        DeleteRoulette((&pRoulette));
+
+        /*返回失败*/
+        return APP_FLAG_FAILURE;
+    }
+
+    /*赋值轮盘结构*/
+    {
+        /*轮盘中的锚点轮齿链*/
+        pRoulette->m_pAnchor = pCogChain;
+
+        /*轮盘中的当前轮齿链*/
+        pRoulette->m_pCurrent = pCogChain;
+
+        /*轮盘中轮齿链的数量*/
+        size_t uiCount = 0x00;
+        CountCogChain(pRoulette->m_pAnchor
+                      , (&uiCount));
+        {
+            pRoulette->m_uiCount = uiCount;
+        }
+
+        /*轮盘标识*/
+        unsigned short usIdentity = 0x00;
+        AutoIncrementIdentity(kaidRoulette, (&usIdentity));
+        {
+            pRoulette->m_usIdentity = usIdentity;
+        }
+
+        /*轮盘无效性*/
+        pRoulette->m_ucIsNullity = APP_STATE_FALSE;
     }
 
     /*定向指针地址*/
@@ -110,13 +144,13 @@ int CloneRoulette(Roulette** paRoulette
 
 
 /*!
- * 追加轮齿到轮盘结构
+ * 追加轮齿链到轮盘结构
  * @param[in,out] pRoulette 轮盘结构指针
- * @param[in]     szContent 轮齿内容
+ * @param[in]     szContent 轮齿链内容
  * @return 标识码
 */
-int AppendCog2Roulette(Roulette* pRoulette
-                       , const char* szContent)
+int AppendCogChain2Roulette(Roulette* pRoulette
+                            , const char* szContent)
 {
     /*检测指针*/
     if(NULL == pRoulette)
@@ -129,10 +163,11 @@ int AppendCog2Roulette(Roulette* pRoulette
     if(APP_FLAG_SUCCESS != NewCogChain((&pCogChain)
                                        , szContent))
     {
+        /*返回失败*/
         return APP_FLAG_FAILURE;
     }
 
-    /*更新轮盘结构*/
+    /*赋值轮盘结构*/
     {
         /*轮盘中的锚点轮齿链*/
         if(NULL == pRoulette->m_pAnchor)
@@ -140,9 +175,17 @@ int AppendCog2Roulette(Roulette* pRoulette
             pRoulette->m_pAnchor = pCogChain;
         }
 
-        /*追加轮齿到轮齿链结构*/
-        InsertCogChain(pRoulette->m_pAnchor->m_pForward
-                       , pCogChain);
+        /*轮盘中的当前轮齿链*/
+        if(NULL == pRoulette->m_pCurrent)
+        {
+            pRoulette->m_pCurrent = pCogChain;
+        }
+
+        /*追加轮齿链结构*/
+        {
+            InsertCogChain(pRoulette->m_pAnchor->m_pForward
+                           , pCogChain);
+        }
 
         /*轮盘中轮齿链的数量*/
         size_t uiCount = 0x00;
@@ -151,7 +194,6 @@ int AppendCog2Roulette(Roulette* pRoulette
         {
             pRoulette->m_uiCount = uiCount;
         }
-
     }
 
     /*返回成功*/
@@ -169,7 +211,7 @@ int AppendCog2Roulette(Roulette* pRoulette
 int NullifyRoulette(Roulette* pRoulette
                     , unsigned char ucIsNullity)
 {
-    /*检测指针地址*/
+    /*检测指针*/
     if(NULL == pRoulette)
     {
         return APP_FLAG_FAILURE;
@@ -205,14 +247,16 @@ int DeleteRoulette(Roulette** paRoulette)
         return APP_FLAG_SUCCESS;
     }
 
-    /*释放内存
+    /*清空轮齿链结构*/
+    CleanCogChain(&((*paRoulette)->m_pCurrent));
+
+    /*释放内存*/
     free((*paRoulette));
     {
         (*paRoulette) = NULL;
-    }*/
+    }
 
     /*返回成功*/
     return APP_FLAG_SUCCESS;
 }
-
 

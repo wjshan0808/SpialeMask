@@ -47,13 +47,13 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
-     * 追加轮齿到轮盘结构
+     * 追加轮齿链到轮盘结构
      * @param[in,out] pRoulette 轮盘结构指针
-     * @param[in]     szContent 轮齿内容
+     * @param[in]     szContent 轮齿链内容
      * @return 标识码
     */
-    SPIALEMASK_EXPORT int AppendCog2Roulette(Roulette* pRoulette
-                                             , const char* szContent);
+    SPIALEMASK_EXPORT int AppendCogChain2Roulette(Roulette* pRoulette
+                                                  , const char* szContent);
 
 
     /*!
