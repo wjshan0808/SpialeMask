@@ -56,16 +56,36 @@ typedef enum /*: unsigned char*/
     kaidNaN = 0x00,     /*无效自增标识键*/
 
     kaidCog,            /*轮齿自增标识键*/
-    kaidCogChain,       /*轮齿链自增标识键*/
     kaidRoulette,       /*轮盘自增标识键*/
+    kaidSpiale,         /*轮轴自增标识键*/
 
-    kaidNone,           /*空自增标识键*/
+    kaidNone,           /*空 自增标识键*/
 
 } KeyAutoIncrementIdentity;
 
 
 /* begin extern "C" */
 APP_EXTERN_C_BEGIN
+
+
+
+
+    /*!
+     * 测试库函数
+     * @param[in] iA 参数A
+     * @param[in] iB 参数B
+     * @return  返回输入参数相加和
+    */
+    SPIALEMASK_EXPORT int Rolls();
+
+
+    /*!
+    * 测试库函数
+    * @param[in] iA 参数A
+    * @param[in] iB 参数B
+    * @return  返回输入参数相加和
+    */
+    SPIALEMASK_EXPORT int Spin();
 
 
     /*!
@@ -76,6 +96,7 @@ APP_EXTERN_C_BEGIN
     */
     SPIALEMASK_EXPORT int AutoIncrementIdentity(KeyAutoIncrementIdentity enKaid
                                                 , unsigned short* pValue);
+
 
 
 /* end extern "C" */

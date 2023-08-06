@@ -62,6 +62,7 @@ SOURCES += \
     Core/Cog.c \
     Core/CogChain.c \
     Core/Roulette.c \
+    Core/RouletteChain.c \
     Core/Spiale.c \
     SpialeMask.c
 
@@ -72,6 +73,7 @@ HEADERS += \
     Core/Cog.h \
     Core/CogChain.h \
     Core/Roulette.h \
+    Core/RouletteChain.h \
     Core/Spiale.h \
     SpialeMask.h
 

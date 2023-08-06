@@ -166,8 +166,8 @@ int CloneCogChain(CogChain** paCogChain
             }
 
             /*插入轮齿到轮齿链结构*/
-            InsertCogChain(pBackward,
-                           pCogChain);
+            InsertCogChain(pBackward
+                           , pCogChain);
         }
 
         /*遍历后一个轮齿*/
