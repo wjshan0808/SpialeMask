@@ -69,25 +69,6 @@ APP_EXTERN_C_BEGIN
 
 
 
-
-    /*!
-     * 测试库函数
-     * @param[in] iA 参数A
-     * @param[in] iB 参数B
-     * @return  返回输入参数相加和
-    */
-    SPIALEMASK_EXPORT int Rolls();
-
-
-    /*!
-    * 测试库函数
-    * @param[in] iA 参数A
-    * @param[in] iB 参数B
-    * @return  返回输入参数相加和
-    */
-    SPIALEMASK_EXPORT int Spin();
-
-
     /*!
      * 获取自增标识键对应的自增标识值
      * @param[in]     enKaid 自增标识键

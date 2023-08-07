@@ -2,6 +2,24 @@
 
 
 /*!
+ * 旋转轮轴
+ * @param[in,out] pSpiale 轮轴结构指针
+ * @return 标识码
+*/
+int SpinSpiale(Spiale* pSpiale)
+{
+    /*检测指针*/
+    if(NULL == pSpiale)
+    {
+        return APP_FLAG_FAILURE;
+    }
+
+    /*返回成功*/
+    return APP_FLAG_SUCCESS;
+}
+
+
+/*!
  * 新建轮轴结构
  * @param[in,out] paSpiale 轮轴结构指针地址
  * @return 标识码
@@ -146,7 +164,7 @@ int CloneSpiale(Spiale** paSpiale
 /*!
  * 追加轮盘链到轮轴结构
  * @param[in,out] pSpiale 轮轴结构指针
- * @param[in]     pRouletteChain 轮盘链指针
+ * @param[in,out] pRouletteChain 轮盘链指针
  * @return 标识码
 */
 int AppendRouletteChain2Spiale(Spiale* pSpiale

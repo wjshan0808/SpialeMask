@@ -32,8 +32,6 @@ void testLogArchiverOuter(const LogContent* p)
 }
 void testLog()
 {
-    unsigned short us= 0xffff;
-    while (us--)
     {
         LogRegist(LogArchiveExample);
 

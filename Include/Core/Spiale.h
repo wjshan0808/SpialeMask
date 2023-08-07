@@ -26,6 +26,16 @@ typedef struct
 APP_EXTERN_C_BEGIN
 
 
+
+
+    /*!
+     * 旋转轮轴
+     * @param[in,out] pSpiale 轮轴结构指针
+     * @return 标识码
+    */
+    SPIALEMASK_EXPORT int SpinSpiale(Spiale* pSpiale);
+
+
     /*!
      * 新建轮轴结构
      * @param[in,out] paSpiale 轮轴结构指针地址
@@ -49,7 +59,7 @@ APP_EXTERN_C_BEGIN
     /*!
      * 追加轮盘链到轮轴结构
      * @param[in,out] pSpiale 轮轴结构指针
-     * @param[in]     pRouletteChain 轮盘链指针
+     * @param[in,out] pRouletteChain 轮盘链指针
      * @return 标识码
     */
     SPIALEMASK_EXPORT int AppendRouletteChain2Spiale(Spiale* pSpiale

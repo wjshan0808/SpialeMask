@@ -51,7 +51,9 @@ SOURCES += \
         testCog.cpp \
         testCogChain.cpp \
         testLog.cpp \
-        testRoulette.cpp
+        testRoulette.cpp \
+        testRouletteChain.cpp \
+        testSpiale.cpp
 
 
 # Default rules for deployment.
