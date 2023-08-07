@@ -59,6 +59,7 @@ SOURCES += \
     App/App.c \
     App/Kit/Utility.c \
     App/Log/Log.c \
+    Core/Assemble.c \
     Core/Cog.c \
     Core/CogChain.c \
     Core/Roulette.c \
@@ -70,6 +71,7 @@ HEADERS += \
     App/AppDefines.h \
     App/Kit/Utility.h \
     App/Log/Log.h \
+    Core/Assemble.h \
     Core/Cog.h \
     Core/CogChain.h \
     Core/Roulette.h \

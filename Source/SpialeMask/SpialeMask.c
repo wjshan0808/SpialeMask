@@ -9,12 +9,6 @@ volatile static unsigned int gs_arrValueAutoIncrementIdentity[kaidNone] = { 0x00
 
 
 
-
-
-
-
-
-
 /*!
  * 获取自增标识键对应的自增标识值
  * @param[in]     enKaid 自增标识键
