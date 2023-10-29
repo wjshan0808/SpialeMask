@@ -7,9 +7,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 
 CONFIG -= c99
-#CONFIG += c1x
+CONFIG += c11
 QMAKE_CFLAGS -= -std=c99
-QMAKE_CFLAGS += -std=c1x
+QMAKE_CFLAGS += -std=c11
 
 
 ## UI中间文件输出目录

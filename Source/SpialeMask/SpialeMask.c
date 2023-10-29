@@ -4,7 +4,7 @@
 /*!
  * 自增标识值
 */
-volatile static unsigned int gs_arrValueAutoIncrementIdentity[kaidNone] = { 0x00 };
+static volatile unsigned int gs_arrValueAutoIncrementIdentity[kaidNone] = { 0x00 };
 
 
 

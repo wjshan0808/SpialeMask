@@ -27,9 +27,15 @@
 
 
 /*!
+ * SpialeMask Flag
+*/
+#define APP_FLAG_SM_SPIN_OVER       (0x0100)    /*旋转结束标识*/
+
+
+/*!
  * Cog 宏定义
 */
-#define SM_SIZE_COG_CONTENT     (0x80)      /*Cog内容大小*/
+#define SM_SIZE_COG_CONTENT         (0x80)      /*Cog内容大小*/
 
 
 

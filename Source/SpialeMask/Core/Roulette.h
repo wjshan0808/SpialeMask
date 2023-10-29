@@ -31,6 +31,7 @@ APP_EXTERN_C_BEGIN
      * @param[in,out] paRoulette 轮盘结构指针地址
      * @return 标识码
      * @remark 不使用时请调用DeleteRoulette删除
+     * @footnote 请随后挂载轮齿链使轮盘有效
     */
     SPIALEMASK_EXPORT int NewRoulette(Roulette** paRoulette);
 
@@ -47,13 +48,33 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
+     * 从轮盘结构移除轮齿链
+     * @param[in,out] pRoulette 轮盘结构指针
+     * @param[in,out] paCogChain 轮齿链结构指针地址
+     * @return 标识码
+    */
+    SPIALEMASK_EXPORT int RemoveCogChainFromRoulette(Roulette* pRoulette
+                                                     , CogChain** paCogChain);
+
+
+    /*!
      * 追加轮齿链到轮盘结构
      * @param[in,out] pRoulette 轮盘结构指针
-     * @param[in]     szContent 轮齿链内容
+     * @param[in,out] pCogChain 轮齿链结构指针
      * @return 标识码
     */
     SPIALEMASK_EXPORT int AppendCogChain2Roulette(Roulette* pRoulette
-                                                  , const char* szContent);
+                                                  , CogChain* pCogChain);
+
+
+    /*!
+     * 融合轮齿链到轮盘结构
+     * @param[in,out] pRoulette 轮盘结构指针
+     * @param[in,out] pCogChain 轮齿链结构指针
+     * @return 标识码
+    */
+    SPIALEMASK_EXPORT int JoinCogChain2Roulette(Roulette* pRoulette
+                                                , CogChain* pCogChain);
 
 
     /*!

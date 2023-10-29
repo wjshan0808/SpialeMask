@@ -3,12 +3,12 @@
 
 QT -= gui
 
-CONFIG -= c99
-CONFIG += c++11 console
 CONFIG -= app_bundle
-#CONFIG += c1x
+CONFIG += c++11 console
+CONFIG -= c99
+CONFIG += c11
 QMAKE_CFLAGS -= -std=c99
-QMAKE_CFLAGS += -std=c1x
+QMAKE_CFLAGS += -std=c11
 
 
 ## UI中间文件输出目录

@@ -25,6 +25,19 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
+     * 铸造轮盘链
+     * @param[in,out] paRouletteChain 轮盘链结构指针地址
+     * @param[in]     uiCount 轮盘的若干轮齿数量
+     * @param[in]     szContents 轮盘的若干轮齿内容
+     * @return 标识码
+     * @remark 不使用时请调用CleanRouletteChain删除
+    */
+    SPIALEMASK_EXPORT int MoldingRouletteChain(RouletteChain** paRouletteChain
+                                               , size_t uiCount
+                                               , const char* szContents[]);
+
+
+    /*!
      * 新建轮盘链结构
      * @param[in,out] paRouletteChain 轮盘链结构指针地址
      * @return 标识码
@@ -55,7 +68,7 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
-     * 合并轮盘链结构
+     * 融合轮盘链结构
      * @param[in,out] pDstRouletteChain 目标轮盘链结构指针
      * @param[in,out] pSrcRouletteChain 源轮盘链结构指针
      * @return 标识码

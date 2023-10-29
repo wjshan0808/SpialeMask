@@ -31,35 +31,38 @@ int NewCog(Cog** paCog
 
     /*赋值轮齿结构*/
     {
-        /*长度限制条件*/
+        /*循环条件: 轮齿内容长度(包含\0) 小于 齿轮内容空间容量*/
         while(sizeof(pCog->m_szContent) > pCog->m_uiLength)
         {
-            /*获取轮齿内容长度包含\0*/
+            /*累计轮齿内容长度(包含\0)*/
             ++(pCog->m_uiLength);
 
-            /*检测\0*/
+            /*结束条件: 检测到(\0)*/
             if((NULL == szContent) || (0x00 == (*(szContent++))))
             {
                 break;
             }
         }
 
-        /*复制轮齿内容*/
+        /*复制(不包含\0)的轮齿内容*/
         if(0x01 < pCog->m_uiLength)
         {
             strncpy_s(pCog->m_szContent, pCog->m_uiLength
+                      /*定位到内容首地址, 计算(不包含\0)的内容数量*/
                       , (szContent - pCog->m_uiLength), (pCog->m_uiLength - 0x01));
         }
 
-        /*轮齿标识*/
+        /*轮齿全局递增标识*/
         unsigned short usIdentity = 0x00;
         AutoIncrementIdentity(kaidCog, (&usIdentity));
         {
             pCog->m_usIdentity = usIdentity;
         }
 
-        /*轮齿无效性*/
-        pCog->m_ucIsNullity = APP_STATE_FALSE;
+        /*轮齿默认有效*/
+        {
+            pCog->m_ucIsNullity = APP_STATE_FALSE;
+        }
 
     }
 
@@ -109,17 +112,17 @@ int CloneCog(Cog** paCog
 
     /*赋值轮齿结构*/
     {
-        /*复制源轮齿内容*/
+        /*复制源轮齿结构内容*/
         if(0x00 != memcpy_s(pCog, sizeof(Cog), pSrcCog, sizeof(Cog)))
         {
-            /*清理轮齿内存*/
+            /*复制失败, 清理轮齿内存*/
             DeleteCog(&pCog);
 
             /*复制失败*/
             return APP_FLAG_FAILURE;
         }
 
-        /*轮齿标识*/
+        /*轮齿全局递增标识*/
         unsigned short usIdentity = 0x00;
         AutoIncrementIdentity(kaidCog, (&usIdentity));
         {
@@ -147,35 +150,38 @@ int CloneCog(Cog** paCog
 int UpdateCog(Cog* pCog
               , const char* szUpdate)
 {
-    /*检测指针地址*/
+    /*检测指针*/
     if(NULL == pCog)
     {
         return APP_FLAG_FAILURE;
     }
 
-    /*重置轮齿内容*/
+    /*循环条件: 轮齿内容有长度(包含\0) 且小于 齿轮内容空间容量*/
     while((0x00 < pCog->m_uiLength) && (sizeof(pCog->m_szContent) > pCog->m_uiLength))
     {
+        /*从右向左, 重置轮齿内容*/
         pCog->m_szContent[--(pCog->m_uiLength)] = 0x00;
     }
 
-    /*长度限制条件*/
+    /*循环条件: 轮齿内容长度(包含\0) 小于 齿轮内容空间容量*/
     while(sizeof(pCog->m_szContent) > pCog->m_uiLength)
     {
-        /*获取轮齿内容长度包含\0*/
+        /*累计轮齿内容长度(包含\0)*/
         ++(pCog->m_uiLength);
 
-        /*检测\0*/
+        /*结束条件: 检测到(\0)*/
         if((NULL == szUpdate) || (0x00 == (*(szUpdate++))))
         {
             break;
         }
     }
 
-    /*复制轮齿内容*/
+    /*复制(不包含\0)的轮齿内容*/
     if(0x01 < pCog->m_uiLength)
     {
-        strncpy_s(pCog->m_szContent, pCog->m_uiLength, (szUpdate - pCog->m_uiLength), (pCog->m_uiLength - 0x01));
+        strncpy_s(pCog->m_szContent, pCog->m_uiLength
+                  /*定位到内容首地址, 计算(不包含\0)的内容数量*/
+                  , (szUpdate - pCog->m_uiLength), (pCog->m_uiLength - 0x01));
     }
 
     /*返回成功*/
@@ -193,15 +199,14 @@ int UpdateCog(Cog* pCog
 int NullifyCog(Cog* pCog
                , unsigned char ucIsNullity)
 {
-    /*检测指针地址*/
+    /*检测指针*/
     if(NULL == pCog)
     {
         return APP_FLAG_FAILURE;
     }
 
-    /*赋值轮齿结构*/
+    /*赋值轮齿无效性*/
     {
-        /*轮齿无效性*/
         pCog->m_ucIsNullity = ucIsNullity;
     }
 
@@ -229,9 +234,9 @@ int DeleteCog(Cog** paCog)
         return APP_FLAG_SUCCESS;
     }
 
-    /*释放内存*/
-    free((*paCog));
+    /*释放轮齿内存*/
     {
+        free((*paCog));
         (*paCog) = NULL;
     }
 

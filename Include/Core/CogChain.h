@@ -57,7 +57,7 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
-     * 合并轮齿链结构
+     * 融合轮齿链结构
      * @param[in,out] pDstCogChain 目标轮齿链结构指针
      * @param[in,out] pSrcCogChain 源轮齿链结构指针
      * @return 标识码
