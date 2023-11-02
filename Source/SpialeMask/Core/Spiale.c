@@ -1,7 +1,6 @@
 #include "Spiale.h"
 
 
-
 /*!
  * 新建轮轴结构
  * @param[in,out] paSpiale 轮轴结构指针地址
@@ -191,13 +190,16 @@ int RemoveRouletteChainFromSpiale(Spiale* pSpiale
     /*标识: 轮轴中包含轮盘链*/
     unsigned char ucContains = APP_STATE_FALSE;
 
+    /*指定移除的轮盘链*/
+    RouletteChain* pRouletteChain = (*paRouletteChain);
+
     /*轮盘链的下一个轮盘*/
     const RouletteChain* pForword = pSpiale->m_pAnchor;
     {
         while (NULL != pForword)
         {
             /*循环遍历终止: 当前轮盘链 等于 给定轮盘链*/
-            if(pForword == (*paRouletteChain))
+            if(pForword == pRouletteChain)
             {
                 ucContains = APP_STATE_TRUE;
                 break;
@@ -253,26 +255,26 @@ int RemoveRouletteChainFromSpiale(Spiale* pSpiale
     {
         /*修复给定轮盘链前一个轮盘链*/
         {
-            (*paRouletteChain)->m_pForward->m_pBackward = (*paRouletteChain)->m_pBackward;
+            pRouletteChain->m_pForward->m_pBackward = pRouletteChain->m_pBackward;
         }
 
         /*修复给定轮盘链后一个轮盘链*/
         {
-            (*paRouletteChain)->m_pBackward->m_pForward = (*paRouletteChain)->m_pForward;
+            pRouletteChain->m_pBackward->m_pForward = pRouletteChain->m_pForward;
         }
 
         /*条件: 轮轴锚点轮盘链 等于 给定轮盘链*/
-        if(pSpiale->m_pAnchor == (*paRouletteChain))
+        if(pSpiale->m_pAnchor == pRouletteChain)
         {
             /*轮轴锚点轮盘链: 前移*/
-            pSpiale->m_pAnchor = (*paRouletteChain)->m_pForward;
+            pSpiale->m_pAnchor = pRouletteChain->m_pForward;
         }
 
         /*条件: 轮轴当前轮盘链 等于 给定轮盘链*/
-        if(pSpiale->m_pCurrent == (*paRouletteChain))
+        if(pSpiale->m_pCurrent == pRouletteChain)
         {
             /*轮轴当前轮盘链: 前移*/
-            pSpiale->m_pCurrent = (*paRouletteChain)->m_pForward;
+            pSpiale->m_pCurrent = pRouletteChain->m_pForward;
         }
 
         /*轮轴中轮盘链的数量, 减一*/
@@ -284,7 +286,7 @@ int RemoveRouletteChainFromSpiale(Spiale* pSpiale
 
     /*释放轮盘链内存*/
     {
-        DeleteRouletteChain(paRouletteChain);
+        DeleteRouletteChain(&pRouletteChain);
     }
 
     /*返回成功*/
@@ -332,7 +334,8 @@ int AppendRouletteChain2Spiale(Spiale* pSpiale
             pSpiale->m_pCurrent = pRouletteChain;
         }
 
-        /*追加轮盘链结构*/
+        /*条件: 向轮轴中已有轮盘链追加轮盘*/
+        if(0x00 < pSpiale->m_uiCount)
         {
             InsertRouletteChain(pSpiale->m_pAnchor->m_pForward
                                 , pRouletteChain);
@@ -393,7 +396,8 @@ int JoinRouletteChain2Spiale(Spiale* pSpiale
             pSpiale->m_pCurrent = pRouletteChain;
         }
 
-        /*融合轮盘链结构*/
+        /*条件: 向轮轴中已有轮盘链融合轮盘链结构*/
+        if(0x00 < pSpiale->m_uiCount)
         {
             JoinRouletteChain(pSpiale->m_pAnchor->m_pForward
                               , pRouletteChain);

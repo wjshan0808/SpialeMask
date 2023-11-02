@@ -48,12 +48,14 @@ DESTDIR += ../../Release
 ##
 SOURCES += \
         main.cpp \
+        testLog.cpp \
+        testSpialeMask.cpp \
         testCog.cpp \
         testCogChain.cpp \
-        testLog.cpp \
         testRoulette.cpp \
         testRouletteChain.cpp \
-        testSpiale.cpp
+        testSpiale.cpp \
+        #testAssemble.cpp
 
 
 # Default rules for deployment.

@@ -157,7 +157,7 @@ int UpdateCog(Cog* pCog
     }
 
     /*循环条件: 轮齿内容有长度(包含\0) 且小于 齿轮内容空间容量*/
-    while((0x00 < pCog->m_uiLength) && (sizeof(pCog->m_szContent) > pCog->m_uiLength))
+    while((0x00 < pCog->m_uiLength) && (sizeof(pCog->m_szContent) >= pCog->m_uiLength))
     {
         /*从右向左, 重置轮齿内容*/
         pCog->m_szContent[--(pCog->m_uiLength)] = 0x00;

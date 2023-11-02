@@ -190,13 +190,16 @@ int RemoveCogChainFromRoulette(Roulette* pRoulette
     /*标识: 轮盘中包含轮齿链*/
     unsigned char ucContains = APP_STATE_FALSE;
 
+    /*指定移除的轮齿链*/
+    CogChain* pCogChain = (*paCogChain);
+
     /*轮齿链的下一个轮齿*/
     const CogChain* pForword = pRoulette->m_pAnchor;
     {
         while (NULL != pForword)
         {
             /*循环遍历终止: 当前轮齿链 等于 给定轮齿链*/
-            if(pForword == (*paCogChain))
+            if(pForword == pCogChain)
             {
                 ucContains = APP_STATE_TRUE;
                 break;
@@ -252,26 +255,26 @@ int RemoveCogChainFromRoulette(Roulette* pRoulette
     {
         /*修复给定轮齿链前一个轮齿链*/
         {
-            (*paCogChain)->m_pForward->m_pBackward = (*paCogChain)->m_pBackward;
+            pCogChain->m_pForward->m_pBackward = pCogChain->m_pBackward;
         }
 
         /*修复给定轮齿链后一个轮齿链*/
         {
-            (*paCogChain)->m_pBackward->m_pForward = (*paCogChain)->m_pForward;
+            pCogChain->m_pBackward->m_pForward = pCogChain->m_pForward;
         }
 
         /*条件: 轮盘锚点轮齿链 等于 给定轮齿链*/
-        if(pRoulette->m_pAnchor == (*paCogChain))
+        if(pRoulette->m_pAnchor == pCogChain)
         {
             /*轮盘锚点轮齿链: 前移*/
-            pRoulette->m_pAnchor = (*paCogChain)->m_pForward;
+            pRoulette->m_pAnchor = pCogChain->m_pForward;
         }
 
         /*条件: 轮盘当前轮齿链 等于 给定轮齿链*/
-        if(pRoulette->m_pCurrent == (*paCogChain))
+        if(pRoulette->m_pCurrent == pCogChain)
         {
             /*轮盘当前轮齿链: 前移*/
-            pRoulette->m_pCurrent = (*paCogChain)->m_pForward;
+            pRoulette->m_pCurrent = pCogChain->m_pForward;
         }
 
         /*轮盘中轮齿链的数量, 减一*/
@@ -283,7 +286,7 @@ int RemoveCogChainFromRoulette(Roulette* pRoulette
 
     /*释放轮齿链内存*/
     {
-        DeleteCogChain(paCogChain);
+        DeleteCogChain(&pCogChain);
     }
 
     /*返回成功*/
@@ -331,7 +334,8 @@ int AppendCogChain2Roulette(Roulette* pRoulette
             pRoulette->m_pCurrent = pCogChain;
         }
 
-        /*追加轮齿链结构*/
+        /*条件: 向轮盘中已有轮齿链追加轮齿*/
+        if(0x00 < pRoulette->m_uiCount)
         {
             InsertCogChain(pRoulette->m_pAnchor->m_pForward
                            , pCogChain);
@@ -392,7 +396,8 @@ int JoinCogChain2Roulette(Roulette* pRoulette
             pRoulette->m_pCurrent = pCogChain;
         }
 
-        /*融合轮齿链结构*/
+        /*条件: 向轮盘中已有轮齿链融合轮齿链结构*/
+        if(0x00 < pRoulette->m_uiCount)
         {
             JoinCogChain(pRoulette->m_pAnchor->m_pForward
                          , pCogChain);

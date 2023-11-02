@@ -324,6 +324,7 @@ int CountCogChain(const CogChain* pCogChain
  * 清空轮齿链结构
  * @param[in,out] paCogChain 轮齿链结构指针地址
  * @return 标识码
+ * @remark 调用CleanCogChain前请必要修复轮齿链关系
 */
 int CleanCogChain(CogChain** paCogChain)
 {

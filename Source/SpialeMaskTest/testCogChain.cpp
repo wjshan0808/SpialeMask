@@ -1,337 +1,488 @@
 
-#include "SpialeMask.h"
-#include "Core/CogChain.h"
-
-#include <string.h>
-#include <stdlib.h>
+#include "testSpialeMask.cpp"
 
 
-void testCogChain()
+void testCogChainAPI()
 {
     LogRegist(LogArchiveExample);
 
-    CogChain* pCogChain = NULL;
-    LOG_INFO("pCogChain = %p, &pCogChain = %p.", pCogChain, &pCogChain);
+    int iCode = 0x00;
+    size_t uiCount = 0x00;
 
-    /**/
-    LOG_DEBUG("\r\n");
+
+    LOG_INFO("\n=== P1 ===");
+
+    CogChain* pCogChainA = NULL;
     {
-        int ia = DeleteCogChain(NULL);
-        LOG_INFO("ia = %d.", ia);
+        LOG_INFO("Test API NewCogChain(a) ...");
+        iCode = NewCogChain(&pCogChainA, "a");
+        printCogChain(pCogChainA);
 
-        size_t uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
+        iCode = CountCogChain(pCogChainA, &uiCount);
+        LOG_INFO("Test API CountCogChain(a = %zu).", uiCount);
+    }
+    CogChain* pCloneCogChainA = NULL;
+    {
+        LOG_INFO("Test API CloneCogChain(a) ...");
+        iCode = CloneCogChain(&pCloneCogChainA, pCogChainA);
+        printCogChain(pCloneCogChainA);
 
-        ia = DeleteCogChain(&pCogChain);
-        LOG_INFO("ia = %d.", ia);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p.", pCogChain, &pCogChain);
-
+        iCode = CountCogChain(pCloneCogChainA, &uiCount);
+        LOG_INFO("Test API CountCogChain(a = %zu).", uiCount);
     }
 
-    /**/
-    LOG_DEBUG("\r\n");
+    CogChain* pCogChainB = NULL;
+    CogChain* pCloneCogChainB = NULL;
     {
-        char* a  = "a";
-
-        int ia = NewCogChain(NULL, a);
-        LOG_INFO("ia = %d.", ia);
-
-        ia = NewCogChain(&pCogChain, a);
-        LOG_INFO("ia = %d.", ia);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", pCogChain->m_pForward, pCogChain->m_pCog->m_szContent, pCogChain->m_pBackward);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p, *pCogChain = %p.", pCogChain, &pCogChain, *pCogChain);
-
-        size_t uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
-
-        ia = DeleteCogChain(&pCogChain);
-        LOG_INFO("ia = %d.", ia);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p.", pCogChain, &pCogChain);
+        iCode = NewCogChain(&pCogChainB, "b");
+        iCode = CloneCogChain(&pCloneCogChainB, pCogChainB);
     }
 
-    LOG_DEBUG("\r\n");
+    CogChain* pCogChainC = NULL;
+    CogChain* pCloneCogChainC = NULL;
     {
-        char* a = "b";
-
-        int ia = NewCogChain(&pCogChain, a);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", pCogChain->m_pForward, pCogChain->m_pCog->m_szContent, pCogChain->m_pBackward);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p, *pCogChain = %p.", pCogChain, &pCogChain, *pCogChain);
-
-        size_t uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
-
-        ia = CleanCogChain(&pCogChain);
-        LOG_INFO("ia = %d.", ia);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p.", pCogChain, &pCogChain);
+        iCode = NewCogChain(&pCogChainC, "c");
+        iCode = CloneCogChain(&pCloneCogChainC, pCogChainC);
     }
 
-    LOG_DEBUG("\r\n");
+    CogChain* pCogChainD = NULL;
+    CogChain* pCloneCogChainD = NULL;
     {
-        char* a = "c";
-
-        int ia = NewCogChain(&pCogChain, a);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", pCogChain->m_pForward, pCogChain->m_pCog->m_szContent, pCogChain->m_pBackward);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p, *pCogChain = %p.", pCogChain, &pCogChain, *pCogChain);
-
-        size_t uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
-
-        {
-            CogChain* pCloneCogChain = NULL;
-
-            ia = CloneCogChain(&pCloneCogChain, pCogChain);
-            LOG_INFO("Forward = %p, %s, Backward = %p.", pCloneCogChain->m_pForward, pCloneCogChain->m_pCog->m_szContent, pCloneCogChain->m_pBackward);
-            LOG_INFO("pCloneCogChain = %p, &pCloneCogChain = %p, *pCloneCogChain = %p.", pCloneCogChain, &pCloneCogChain, *pCloneCogChain);
-
-            uiCount = 0x00;
-            CountCogChain(pCloneCogChain, &uiCount);
-            LOG_INFO("Count = %zu.", uiCount);
-
-            ia = CleanCogChain(&pCloneCogChain);
-            LOG_INFO("ia = %d.", ia);
-            LOG_INFO("pCloneCogChain = %p, &pCloneCogChain = %p.", pCloneCogChain, &pCloneCogChain);
-
-        }
-
-        ia = DeleteCogChain(&pCogChain);
-        LOG_INFO("ia = %d.", ia);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p.", pCogChain, &pCogChain);
+        iCode = NewCogChain(&pCogChainD, "d");
+        iCode = CloneCogChain(&pCloneCogChainD, pCogChainD);
     }
 
-    LOG_DEBUG("\r\n");
+    CogChain* pCogChainE = NULL;
+    CogChain* pCloneCogChainE = NULL;
     {
-        char a[] = "d";
+        iCode = NewCogChain(&pCogChainE, "e");
+        iCode = CloneCogChain(&pCloneCogChainE, pCogChainE);
+    }
 
-        int ia = NewCogChain(&pCogChain, a);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", pCogChain->m_pForward, pCogChain->m_pCog->m_szContent, pCogChain->m_pBackward);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p, *pCogChain = %p.", pCogChain, &pCogChain, *pCogChain);
+    CogChain* pCogChainF = NULL;
+    CogChain* pCloneCogChainF = NULL;
+    {
+        iCode = NewCogChain(&pCogChainF, "f");
+        iCode = CloneCogChain(&pCloneCogChainF, pCogChainF);
+    }
 
-        size_t uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
+    CogChain* pCogChainG = NULL;
+    CogChain* pCloneCogChainG = NULL;
+    {
+        iCode = NewCogChain(&pCogChainG, "g");
+        iCode = CloneCogChain(&pCloneCogChainG, pCogChainG);
+    }
 
-        char e[] = "e";
+    CogChain* pCogChainH = NULL;
+    CogChain* pCloneCogChainH = NULL;
+    {
+        iCode = NewCogChain(&pCogChainH, "h");
+        iCode = CloneCogChain(&pCloneCogChainH, pCogChainH);
+    }
 
-        CogChain* peCogChain = NULL;
-         ia = NewCogChain(&peCogChain, e);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", peCogChain->m_pForward, peCogChain->m_pCog->m_szContent, peCogChain->m_pBackward);
-        LOG_INFO("peCogChain = %p, &peCogChain = %p, *peCogChain = %p.", peCogChain, &peCogChain, *peCogChain);
+    CogChain* pCogChainI = NULL;
+    CogChain* pCloneCogChainI = NULL;
+    {
+        iCode = NewCogChain(&pCogChainI, "i");
+        iCode = CloneCogChain(&pCloneCogChainI, pCogChainI);
+    }
 
-        InsertCogChain(pCogChain, peCogChain);
+    CogChain* pCogChainJ = NULL;
+    CogChain* pCloneCogChainJ = NULL;
+    {
+        iCode = NewCogChain(&pCogChainJ, "j");
+        iCode = CloneCogChain(&pCloneCogChainJ, pCogChainJ);
+    }
 
-        uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
+    CogChain* pCogChainK = NULL;
+    CogChain* pCloneCogChainK = NULL;
+    {
+        iCode = NewCogChain(&pCogChainK, "k");
+        iCode = CloneCogChain(&pCloneCogChainK, pCogChainK);
+    }
 
-        const CogChain* pBackword = pCogChain;
-        do
-        {
-            LOG_INFO("Forward = %p, %s, Backward = %p.", pBackword->m_pForward, pBackword->m_pCog->m_szContent, pBackword->m_pBackward);
-            pBackword = pBackword->m_pBackward;
-        }
-        while (pBackword != pCogChain);
-        const CogChain* pForward = pCogChain;
-        do
-        {
-            LOG_INFO("Forward = %p, %s, Backward = %p.", pForward->m_pForward, pForward->m_pCog->m_szContent, pForward->m_pBackward);
-            pForward = pForward->m_pForward;
-        }
-        while (pForward != pCogChain);
-
-        ia = CleanCogChain(&pCogChain);
-        LOG_INFO("ia = %d.", ia);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p.", pCogChain, &pCogChain);
+    CogChain* pCogChainL = NULL;
+    CogChain* pCloneCogChainL = NULL;
+    {
+        iCode = NewCogChain(&pCogChainL, "l");
+        iCode = CloneCogChain(&pCloneCogChainL, pCogChainL);
     }
 
 
-    /*2*/
-    LOG_DEBUG("\r\n");
+
+    LOG_INFO("\n=== P2 ===");
+
+
+    //pCogChainA, pCogChainB
+    CogChain* pCloneCogChainAB = NULL;
     {
-        char a[] = "dd";
+        LOG_INFO("pCogChainA = pCogChainB");
 
-        int ia = NewCogChain(&pCogChain, a);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", pCogChain->m_pForward, pCogChain->m_pCog->m_szContent, pCogChain->m_pBackward);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p, *pCogChain = %p.", pCogChain, &pCogChain, *pCogChain);
-
-        size_t uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
+        LOG_INFO("Test API InsertCogChain(a,b) ...");
+        iCode = InsertCogChain(pCogChainA, pCogChainB);
+        printCogChain(pCogChainA);
+        iCode = CountCogChain(pCogChainA, &uiCount);
+        LOG_INFO("Test API CountCogChain(a,b = %zu).", uiCount);
 
 
-        CogChain* peCogChain = NULL;
-         ia = CloneCogChain(&peCogChain, pCogChain);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", peCogChain->m_pForward, peCogChain->m_pCog->m_szContent, peCogChain->m_pBackward);
-        LOG_INFO("peCogChain = %p, &peCogChain = %p, *epCogChain = %p.", peCogChain, &peCogChain, *peCogChain);
+        LOG_INFO("Test API CloneCogChain(a,b) ...");
+        iCode = CloneCogChain(&pCloneCogChainAB, pCogChainA);
+        printCogChain(pCloneCogChainAB);
+        iCode = CountCogChain(pCloneCogChainAB, &uiCount);
+        LOG_INFO("Test API CountCogChain(a,b = %zu).", uiCount);
+    }
 
-        InsertCogChain(pCogChain, peCogChain);
+    //pCloneCogChainB, pCloneCogChainC
+    CogChain* pCloneCogChainCloneBC = NULL;
+    {
+        LOG_INFO("pCloneCogChainB = pCloneCogChainC");
 
-        uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
+        LOG_INFO("Test API InsertCogChain(b,c) ...");
+        iCode = InsertCogChain(pCloneCogChainB, pCloneCogChainC);
+        printCogChain(pCloneCogChainB);
+        iCode = CountCogChain(pCloneCogChainB, &uiCount);
+        LOG_INFO("Test API CountCogChain(b,c = %zu).", uiCount);
 
-        const CogChain* pBackword = pCogChain;
-        do
-        {
-            LOG_INFO("Forward = %p, %s, Backward = %p.", pBackword->m_pForward, pBackword->m_pCog->m_szContent, pBackword->m_pBackward);
-            pBackword = pBackword->m_pBackward;
-        }
-        while (pBackword != pCogChain);
-        const CogChain* pForward = pCogChain;
-        do
-        {
-            LOG_INFO("Forward = %p, %s, Backward = %p.", pForward->m_pForward, pForward->m_pCog->m_szContent, pForward->m_pBackward);
-            pForward = pForward->m_pForward;
-        }
-        while (pForward != pCogChain);
 
-        ia = CleanCogChain(&pCogChain);
-        LOG_INFO("ia = %d.", ia);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p.", pCogChain, &pCogChain);
+        LOG_INFO("Test API CloneCogChain(b,c) ...");
+        iCode = CloneCogChain(&pCloneCogChainCloneBC, pCloneCogChainB);
+        printCogChain(pCloneCogChainCloneBC);
+        iCode = CountCogChain(pCloneCogChainCloneBC, &uiCount);
+        LOG_INFO("Test API CountCogChain(b,c = %zu).", uiCount);
+    }
+
+    //pCogChainC, pCloneCogChainA
+    CogChain* pCloneCogChainCCloneA = NULL;
+    {
+        LOG_INFO("pCogChainC = pCloneCogChainA");
+
+        LOG_INFO("Test API InsertCogChain(c,a) ...");
+        iCode = InsertCogChain(pCogChainC, pCloneCogChainA);
+        printCogChain(pCogChainC);
+        iCode = CountCogChain(pCogChainC, &uiCount);
+        LOG_INFO("Test API CountCogChain(c,a = %zu).", uiCount);
+
+
+        LOG_INFO("Test API CloneCogChain(c,a) ...");
+        iCode = CloneCogChain(&pCloneCogChainCCloneA, pCogChainC);
+        printCogChain(pCloneCogChainCCloneA);
+        iCode = CountCogChain(pCloneCogChainCCloneA, &uiCount);
+        LOG_INFO("Test API CountCogChain(c,a = %zu).", uiCount);
+    }
+
+    //以上 6 个 2 (a,b,c)
+    //<pCogChainA> , <pCloneCogChainB> , <pCogChainC>
+    //<pCloneCogChainAB> , pCloneCogChainCloneBC , <pCloneCogChainCCloneA>
+
+
+    //pCogChainD, pCogChainE
+    CogChain* pCloneCogChainDE = NULL;
+    {
+        LOG_INFO("pCogChainD = pCogChainE");
+
+        LOG_INFO("Test API InsertCogChain(d,e) ...");
+        iCode = JoinCogChain(pCogChainD, pCogChainE);
+        printCogChain(pCogChainD);
+        iCode = CountCogChain(pCogChainD, &uiCount);
+        LOG_INFO("Test API CountCogChain(d,e = %zu).", uiCount);
+
+
+        LOG_INFO("Test API CloneCogChain(d,e) ...");
+        iCode = CloneCogChain(&pCloneCogChainDE, pCogChainD);
+        printCogChain(pCloneCogChainDE);
+        iCode = CountCogChain(pCloneCogChainDE, &uiCount);
+        LOG_INFO("Test API CountCogChain(d,e = %zu).", uiCount);
+    }
+
+    //pCloneCogChainE, pCloneCogChainF
+    CogChain* pCloneCogChainCloneEF = NULL;
+    {
+        LOG_INFO("pCloneCogChainE = pCloneCogChainF");
+
+        LOG_INFO("Test API InsertCogChain(e,f) ...");
+        iCode = JoinCogChain(pCloneCogChainE, pCloneCogChainF);
+        printCogChain(pCloneCogChainE);
+        iCode = CountCogChain(pCloneCogChainE, &uiCount);
+        LOG_INFO("Test API CountCogChain(e,f = %zu).", uiCount);
+
+
+        LOG_INFO("Test API CloneCogChain(e,f) ...");
+        iCode = CloneCogChain(&pCloneCogChainCloneEF, pCloneCogChainE);
+        printCogChain(pCloneCogChainCloneEF);
+        iCode = CountCogChain(pCloneCogChainCloneEF, &uiCount);
+        LOG_INFO("Test API CountCogChain(e,f = %zu).", uiCount);
+    }
+
+    //pCogChainF, pCloneCogChainD
+    CogChain* pCloneCogChainFCloneD = NULL;
+    {
+        LOG_INFO("pCogChainF = pCloneCogChainD");
+
+        LOG_INFO("Test API InsertCogChain(f,d) ...");
+        iCode = JoinCogChain(pCogChainF, pCloneCogChainD);
+        printCogChain(pCogChainF);
+        iCode = CountCogChain(pCogChainF, &uiCount);
+        LOG_INFO("Test API CountCogChain(f,d = %zu).", uiCount);
+
+
+        LOG_INFO("Test API CloneCogChain(f,d) ...");
+        iCode = CloneCogChain(&pCloneCogChainFCloneD, pCogChainF);
+        printCogChain(pCloneCogChainFCloneD);
+        iCode = CountCogChain(pCloneCogChainFCloneD, &uiCount);
+        LOG_INFO("Test API CountCogChain(f,d = %zu).", uiCount);
+    }
+
+    //以上 6 个 2 (d,e,f)
+    //<pCogChainD> , <pCloneCogChainE> , pCogChainF
+    //<pCloneCogChainDE> , <pCloneCogChainCloneEF>, <pCloneCogChainFCloneD>
+
+
+
+    LOG_INFO("\n=== P3 ===");
+
+
+    //pCogChainG, pCogChainI, pCogChainH
+    {
+        LOG_INFO("pCogChainG = pCogChainI = pCogChainH");
+
+        LOG_INFO("Test API InsertCogChain(g,i,h) ...");
+        iCode = InsertCogChain(pCogChainG, pCogChainH);
+        iCode = InsertCogChain(pCogChainG, pCogChainI);
+        printCogChain(pCogChainG);
+        iCode = CountCogChain(pCogChainG, &uiCount);
+        LOG_INFO("Test API CountCogChain(g,i,h = %zu).", uiCount);
+
+    }
+
+    //pCloneCogChainG, pCloneCogChainH, pCloneCogChainI
+    CogChain* pCloneCogChainGHI = NULL;
+    {
+        LOG_INFO("pCloneCogChainG = pCloneCogChainH = pCloneCogChainI");
+
+        LOG_INFO("Test API InsertCogChain(g,h,i) ...");
+        iCode = InsertCogChain(pCloneCogChainG, pCloneCogChainH);
+        iCode = InsertCogChain(pCloneCogChainH, pCloneCogChainI);
+        printCogChain(pCloneCogChainG);
+        iCode = CountCogChain(pCloneCogChainG, &uiCount);
+        LOG_INFO("Test API CountCogChain(g,h,i = %zu).", uiCount);
+
+        LOG_INFO("Test API CloneCogChain(g,h,i) ...");
+        iCode = CloneCogChain(&pCloneCogChainGHI, pCloneCogChainG);
+        printCogChain(pCloneCogChainGHI);
+        iCode = CountCogChain(pCloneCogChainGHI, &uiCount);
+        LOG_INFO("Test API CountCogChain(g,h,i = %zu).", uiCount);
+    }
+    //以上 3 个 3 (g,h,i)
+    //pCogChainG , <pCloneCogChainG>
+    //pCloneCogChainGHI
+
+
+
+    CogChain* pCloneCogChainJAB = NULL;
+    {
+        LOG_INFO("pCloneCogChainAB = pCogChainJ");
+
+        LOG_INFO("Test API InsertCogChain(a,b,j) ...");
+        iCode = JoinCogChain(pCloneCogChainAB, pCogChainJ);
+        printCogChain(pCloneCogChainAB);
+        iCode = CountCogChain(pCloneCogChainAB, &uiCount);
+        LOG_INFO("Test API CountCogChain(a,b,j = %zu).", uiCount);
+
+
+        LOG_INFO("pCloneCogChainJ = pCogChainA = pCogChainB");
+
+        LOG_INFO("Test API InsertCogChain(j,a,b) ...");
+        iCode = JoinCogChain(pCloneCogChainJ, pCogChainA);
+        printCogChain(pCloneCogChainJ);
+        iCode = CountCogChain(pCloneCogChainJ, &uiCount);
+        LOG_INFO("Test API CountCogChain(j,a,b = %zu).", uiCount);
+
+
+        LOG_INFO("Test API CloneCogChain(j,a,b) ...");
+        iCode = CloneCogChain(&pCloneCogChainJAB, pCloneCogChainJ);
+        printCogChain(pCloneCogChainJAB);
+        iCode = CountCogChain(pCloneCogChainJAB, &uiCount);
+        LOG_INFO("Test API CountCogChain(j,a,b = %zu).", uiCount);
+    }
+    //以上 3 个 3 (j)
+    //pCloneCogChainAB , pCloneCogChainJ
+    //<pCloneCogChainJAB>
+
+
+
+    CogChain* pCloneCogChainKD = NULL;
+    {
+        LOG_INFO("pCloneCogChainK = pCogChainD");
+
+        LOG_INFO("Test API InsertCogChain(k,d,e) ...");
+        iCode = JoinCogChain(pCloneCogChainK, pCogChainD);
+        printCogChain(pCloneCogChainK);
+        iCode = CountCogChain(pCloneCogChainK, &uiCount);
+        LOG_INFO("Test API CountCogChain(k,d,e = %zu).", uiCount);
+
+
+        LOG_INFO("pCloneCogChainDE = pCogChainK");
+
+        LOG_INFO("Test API InsertCogChain(d,e,k) ...");
+        iCode = JoinCogChain(pCloneCogChainDE, pCogChainK);
+        printCogChain(pCloneCogChainDE);
+        iCode = CountCogChain(pCloneCogChainDE, &uiCount);
+        LOG_INFO("Test API CountCogChain(d,e,k = %zu).", uiCount);
+
+
+        LOG_INFO("Test API CloneCogChain(k,d,e) ...");
+        iCode = CloneCogChain(&pCloneCogChainKD, pCloneCogChainK);
+        printCogChain(pCloneCogChainKD);
+        iCode = CountCogChain(pCloneCogChainKD, &uiCount);
+        LOG_INFO("Test API CountCogChain(k,d,e = %zu).", uiCount);
+    }
+    //以上 3 个 3 (k)
+    //<pCloneCogChainK> , pCloneCogChainDE
+    //pCloneCogChainKD
+
+
+
+
+    LOG_INFO("\n=== P4 ===");
+
+
+    CogChain* pCloneCogChainCloneEFC = NULL;
+    {
+        LOG_INFO("pCloneCogChainB, pCloneCogChainCCloneA");
+
+        LOG_INFO("Test API InsertCogChain(b,c,c,a) ...");
+        iCode = JoinCogChain(pCloneCogChainB, pCloneCogChainCCloneA);
+        printCogChain(pCloneCogChainB);
+        iCode = CountCogChain(pCloneCogChainB, &uiCount);
+        LOG_INFO("Test API CountCogChain(b,c,c,a = %zu).", uiCount);
+
+
+        LOG_INFO("pCloneCogChainE, pCloneCogChainFCloneD");
+
+        LOG_INFO("Test API InsertCogChain(e,f,f,d) ...");
+        iCode = JoinCogChain(pCloneCogChainE, pCloneCogChainFCloneD);
+        printCogChain(pCloneCogChainE);
+        iCode = CountCogChain(pCloneCogChainE, &uiCount);
+        LOG_INFO("Test API CountCogChain(e,f,f,d = %zu).", uiCount);
+
+
+        LOG_INFO("pCloneCogChainCloneEF, pCogChainC");
+
+        LOG_INFO("Test API InsertCogChain(e,f,c,a) ...");
+        iCode = JoinCogChain(pCloneCogChainCloneEF, pCogChainC);
+        printCogChain(pCloneCogChainCloneEF);
+        iCode = CountCogChain(pCloneCogChainCloneEF, &uiCount);
+        LOG_INFO("Test API CountCogChain(e,f,c,a = %zu).", uiCount);
+
+
+        LOG_INFO("Test API CloneCogChain(e,f,c,a) ...");
+        iCode = CloneCogChain(&pCloneCogChainCloneEFC, pCloneCogChainCloneEF);
+        printCogChain(pCloneCogChainCloneEFC);
+        iCode = CountCogChain(pCloneCogChainCloneEFC, &uiCount);
+        LOG_INFO("Test API CountCogChain(e,f,c,a = %zu).", uiCount);
+
+    }
+    //以上 4 个 4
+    //pCloneCogChainB , pCloneCogChainE , pCloneCogChainCloneEF
+    //pCloneCogChainCloneEFC
+
+
+
+
+    LOG_INFO("\n=== P9 ===");
+    {
+        LOG_INFO("pCloneCogChainB, pCloneCogChainCCloneA");
+
+        LOG_INFO("Test API InsertCogChain(g,j,k,d,e,a,b,h,i) ...");
+        iCode = JoinCogChain(pCloneCogChainG, pCloneCogChainJAB);
+        iCode = JoinCogChain(pCloneCogChainJAB, pCloneCogChainK);
+        printCogChain(pCloneCogChainG);
+        iCode = CountCogChain(pCloneCogChainG, &uiCount);
+        LOG_INFO("Test API CountCogChain(g,j,k,d,e,a,b,h,i = %zu).", uiCount);
     }
 
 
-    /*2*/
-    LOG_DEBUG("\r\n");
-    CogChain* pCloneCogChain = NULL;
+
+
     {
-        int ia = CloneCogChain(NULL, NULL);
-        LOG_INFO("ia = %d.", ia);
-
-        ia = CloneCogChain(&pCloneCogChain, pCogChain);
-        LOG_INFO("pCloneCogChain = %p, &pCloneCogChain = %p.", pCloneCogChain, &pCloneCogChain);
-
-
-        char f[] = "f";
-        ia = NewCogChain(&pCogChain, f);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", pCogChain->m_pForward, pCogChain->m_pCog->m_szContent, pCogChain->m_pBackward);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p, *pCogChain = %p.", pCogChain, &pCogChain, *pCogChain);
-
-        size_t uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
-
-        CogChain* peCogChain = NULL;
-         ia = CloneCogChain(&peCogChain, pCogChain);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", peCogChain->m_pForward, peCogChain->m_pCog->m_szContent, peCogChain->m_pBackward);
-        LOG_INFO("peCogChain = %p, &peCogChain = %p, *peCogChain = %p.", peCogChain, &peCogChain, *peCogChain);
-
-        InsertCogChain(pCogChain, peCogChain);
-
-        uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
-
-        ia = CloneCogChain(&peCogChain, pCogChain);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", peCogChain->m_pForward, peCogChain->m_pCog->m_szContent, peCogChain->m_pBackward);
-        LOG_INFO("peCogChain = %p, &peCogChain = %p, *peCogChain = %p.", peCogChain, &peCogChain, *peCogChain);
-
+        //1
+        LOG_INFO("Test API DeleteCogChain() ...");
+        iCode = DeleteCogChain(&pCloneCogChainL);
+        printCogChain(pCloneCogChainL);
         {
-            CogChain* pForward = pCogChain->m_pForward;
-
-            pCogChain->m_pForward->m_pBackward = peCogChain;
-            pCogChain->m_pForward = peCogChain->m_pForward;
-
-            peCogChain->m_pForward->m_pBackward = pCogChain;
-            peCogChain->m_pForward = pForward;
+            iCode = DeleteCogChain(&pCogChainL);
+            printCogChain(pCogChainL);
         }
 
 
-        uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
-
-        const CogChain* pBackword = pCogChain;
-        do
+        //2
+        LOG_INFO("Test API CleanCogChain() ...");
+        iCode = CleanCogChain(&pCogChainF);
+        printCogChain(pCogChainF);
         {
-            LOG_INFO("Forward = %p, %d, Backward = %p.", pBackword->m_pForward, pBackword->m_pCog->m_usIdentity, pBackword->m_pBackward);
-            pBackword = pBackword->m_pBackward;
-        }
-        while (pBackword != pCogChain);
-        const CogChain* pForward = pCogChain;
-        do
-        {
-            LOG_INFO("Forward = %p, %d, Backward = %p.", pForward->m_pForward, pForward->m_pCog->m_usIdentity, pForward->m_pBackward);
-            pForward = pForward->m_pForward;
-        }
-        while (pForward != pCogChain);
+            iCode = CleanCogChain(&pCloneCogChainCloneBC);
+            printCogChain(pCloneCogChainCloneBC);
 
-        ia = CleanCogChain(&pCogChain);
-        LOG_INFO("ia = %d.", ia);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p.", pCogChain, &pCogChain);
+        }
+
+
+        //3
+        LOG_INFO("Test API CleanCogChain() ...");
+        iCode = CleanCogChain(&pCloneCogChainGHI);
+        printCogChain(pCloneCogChainGHI);
+        {
+            iCode = CleanCogChain(&pCogChainG);
+            printCogChain(pCogChainG);
+
+            iCode = CleanCogChain(&pCloneCogChainGHI);
+            printCogChain(pCloneCogChainGHI);
+
+            iCode = CleanCogChain(&pCloneCogChainAB);
+            printCogChain(pCloneCogChainAB);
+
+            iCode = CleanCogChain(&pCloneCogChainJ);
+            printCogChain(pCloneCogChainJ);
+
+            iCode = CleanCogChain(&pCloneCogChainDE);
+            printCogChain(pCloneCogChainDE);
+
+            iCode = CleanCogChain(&pCloneCogChainKD);
+            printCogChain(pCloneCogChainKD);
+
+        }
+
+
+        //4
+        LOG_INFO("Test API CleanCogChain() ...");
+        iCode = CleanCogChain(&pCloneCogChainCloneEFC);
+        printCogChain(pCloneCogChainCloneEFC);
+        {
+            iCode = CleanCogChain(&pCloneCogChainB);
+            printCogChain(pCloneCogChainB);
+
+            iCode = CleanCogChain(&pCloneCogChainE);
+            printCogChain(pCloneCogChainE);
+
+            iCode = CleanCogChain(&pCloneCogChainCloneEF);
+            printCogChain(pCloneCogChainCloneEF);
+
+            iCode = CleanCogChain(&pCloneCogChainCloneEFC);
+            printCogChain(pCloneCogChainCloneEFC);
+
+
+        }
+
+
+
+        //9
+        LOG_INFO("Test API CleanCogChain() ...");
+        iCode = CleanCogChain(&pCloneCogChainG);
+        printCogChain(pCloneCogChainG);
+
+
+
     }
 
-    /*3*/
-    LOG_DEBUG("\r\n");
-    {
-
-        char f[] = "f";
-        int ia = NewCogChain(&pCogChain, f);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", pCogChain->m_pForward, pCogChain->m_pCog->m_szContent, pCogChain->m_pBackward);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p, *pCogChain = %p.", pCogChain, &pCogChain, *pCogChain);
-
-        size_t uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
-
-        CogChain* peCogChain = NULL;
-         ia = CloneCogChain(&peCogChain, pCogChain);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", peCogChain->m_pForward, peCogChain->m_pCog->m_szContent, peCogChain->m_pBackward);
-        LOG_INFO("peCogChain = %p, &peCogChain = %p, *peCogChain = %p.", peCogChain, &peCogChain, *peCogChain);
-
-        InsertCogChain(pCogChain, peCogChain);
-
-        uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
-
-        {
-            char f2[] = "f2";
-
-            CogChain* pnCogChain = NULL;
-             ia = NewCogChain(&pnCogChain, f2);
-            LOG_INFO("Forward = %p, %s, Backward = %p.", pnCogChain->m_pForward, pnCogChain->m_pCog->m_szContent, pnCogChain->m_pBackward);
-            LOG_INFO("pnCogChain = %p, &pnCogChain = %p, *pnCogChain = %p.", pnCogChain, &pnCogChain, *pnCogChain);
-
-            InsertCogChain(pCogChain, pnCogChain);
-
-            uiCount = 0x00;
-            CountCogChain(pCogChain, &uiCount);
-            LOG_INFO("Count = %zu.", uiCount);
-        }
-
-        ia = CloneCogChain(&peCogChain, pCogChain);
-        LOG_INFO("Forward = %p, %s, Backward = %p.", peCogChain->m_pForward, peCogChain->m_pCog->m_szContent, peCogChain->m_pBackward);
-        LOG_INFO("peCogChain = %p, &peCogChain = %p, *pCogChain = %p.", peCogChain, &peCogChain, *peCogChain);
-
-        JoinCogChain(pCogChain, peCogChain);
-
-        uiCount = 0x00;
-        CountCogChain(pCogChain, &uiCount);
-        LOG_INFO("Count = %zu.", uiCount);
-
-        const CogChain* pBackword = pCogChain;
-        do
-        {
-            LOG_INFO("Forward = %p, %d, Backward = %p.", pBackword->m_pForward, pBackword->m_pCog->m_usIdentity, pBackword->m_pBackward);
-            pBackword = pBackword->m_pBackward;
-        }
-        while (pBackword != pCogChain);
-        const CogChain* pForward = pCogChain;
-        do
-        {
-            LOG_INFO("Forward = %p, %d, Backward = %p.", pForward->m_pForward, pForward->m_pCog->m_usIdentity, pForward->m_pBackward);
-            pForward = pForward->m_pForward;
-        }
-        while (pForward != pCogChain);
-
-        ia = CleanCogChain(&pCogChain);
-        LOG_INFO("ia = %d.", ia);
-        LOG_INFO("pCogChain = %p, &pCogChain = %p.", pCogChain, &pCogChain);
-    }
 
     LogDestory();
 }

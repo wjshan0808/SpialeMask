@@ -64,7 +64,10 @@ int MoldingRouletteChain(RouletteChain** paRouletteChain
         }
 
         /*追加轮齿链到轮盘结构*/
-        AppendCogChain2Roulette((*paRouletteChain)->m_pRoulette, pCogChain);
+        {
+            AppendCogChain2Roulette((*paRouletteChain)->m_pRoulette
+                                    , pCogChain);
+        }
 
     }
 

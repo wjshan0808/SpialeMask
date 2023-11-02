@@ -5,6 +5,7 @@
 #include "testRoulette.cpp"
 #include "testRouletteChain.cpp"
 #include "testSpiale.cpp"
+//include "testAssemble.cpp"
 
 
 int main(int argc, char *argv[])
@@ -12,27 +13,35 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
 
-    while (true)
+    //while (true)
     {
-        if(0x00)
+
+
+        //if(0x00)
         {
-            testRouletteChain();
+            testSpialeAPI();
         }
 
         if(0x00)
         {
-            testRoulette();
+            testRouletteChainAPI();
         }
 
         if(0x00)
         {
-            testCogChain();
+            testRouletteAPI();
         }
 
         if(0x00)
         {
-            testCog();
+            testCogChainAPI();
         }
+
+        if(0x00)
+        {
+            testCogAPI();
+        }
+
 
         if(0x00)
         {
