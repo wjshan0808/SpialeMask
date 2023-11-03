@@ -16,21 +16,22 @@ APP_EXTERN_C_BEGIN
     /*!
      * 恢复轮轴结构
      * @param[in,out] paSpiale 轮轴结构指针地址
+     * @param[in] szFile 文件路径
      * @return 标识码
      * @remark 不使用时请调用DeleteSpiale删除
     */
-    SPIALEMASK_EXPORT int RestoreSpiale(Spiale** paSpiale);
+    SPIALEMASK_EXPORT int RestoreSpiale(Spiale** paSpiale
+                                        , const char* szFile);
 
 
     /*!
      * 保存轮轴结构
-     * @param[in,out] paSpiale 轮轴结构指针地址
-     * @param[in]     pSrcSpiale 源轮轴结构常量指针
+     * @param[in] szFile 文件路径
+     * @param[in] pSpiale 轮轴结构指针
      * @return 标识码
-     * @remark 不使用时请调用DeleteSpiale删除
     */
-    SPIALEMASK_EXPORT int SaveSpiale(Spiale** paSpiale
-                                      , const Spiale* pSrcSpiale);
+    SPIALEMASK_EXPORT int SaveSpiale(const char* szFile
+                                      , const Spiale* pSpiale);
 
 
 

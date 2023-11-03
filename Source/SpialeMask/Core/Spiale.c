@@ -698,6 +698,52 @@ int NullifySpiale(Spiale* pSpiale
 
 
 /*!
+ * 偏移轮轴结构
+ * @param[in,out] pSpiale 轮轴结构指针
+ * @param[in]     uiOffsetCurrent 当前轮盘偏移量
+ * @param[in]     uiOffsetAnchor 锚点轮盘偏移量
+ * @return 标识码
+*/
+int OffsetSpiale(Spiale* pSpiale
+                 , size_t uiOffsetCurrent
+                 , size_t uiOffsetAnchor)
+{
+    /*检测指针*/
+    if(NULL == pSpiale)
+    {
+        return APP_FLAG_FAILURE;
+    }
+
+    /*检测轮盘*/
+    if(0x00 == pSpiale->m_uiCount)
+    {
+        return APP_FLAG_SUCCESS;
+    }
+
+    /*偏移当前轮盘*/
+    {
+        uiOffsetCurrent %= pSpiale->m_uiCount;
+        while(0x00 < uiOffsetCurrent--)
+        {
+            pSpiale->m_pCurrent = pSpiale->m_pCurrent->m_pForward;
+        }
+    }
+
+    /*偏移锚点轮盘*/
+    {
+        uiOffsetAnchor %= pSpiale->m_uiCount;
+        while(0x00 < uiOffsetAnchor--)
+        {
+            pSpiale->m_pAnchor = pSpiale->m_pAnchor->m_pForward;
+        }
+    }
+
+    /*返回成功*/
+    return APP_FLAG_SUCCESS;
+}
+
+
+/*!
  * 删除轮轴结构
  * @param[in,out] paSpiale 轮轴结构指针地址
  * @return 标识码

@@ -118,6 +118,18 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
+     * 偏移轮轴结构
+     * @param[in,out] pSpiale 轮轴结构指针
+     * @param[in]     uiOffsetCurrent 当前轮盘偏移量
+     * @param[in]     uiOffsetAnchor 锚点轮盘偏移量
+     * @return 标识码
+    */
+    SPIALEMASK_EXPORT int OffsetSpiale(Spiale* pSpiale
+                                       , size_t uiOffsetCurrent
+                                       , size_t uiOffsetAnchor);
+
+
+    /*!
      * 删除轮轴结构
      * @param[in,out] paSpiale 轮轴结构指针地址
      * @return 标识码

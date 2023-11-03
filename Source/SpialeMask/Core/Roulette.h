@@ -89,6 +89,18 @@ APP_EXTERN_C_BEGIN
 
 
     /*!
+     * 偏移轮盘结构
+     * @param[in,out] pRoulette 轮盘结构指针
+     * @param[in]     uiOffsetCurrent 当前轮齿偏移量
+     * @param[in]     uiOffsetAnchor 锚点轮齿偏移量
+     * @return 标识码
+    */
+    SPIALEMASK_EXPORT int OffsetRoulette(Roulette* pRoulette
+                                         , size_t uiOffsetCurrent
+                                         , size_t uiOffsetAnchor);
+
+
+    /*!
      * 删除轮盘结构
      * @param[in,out] paRoulette 轮盘结构指针地址
      * @return 标识码

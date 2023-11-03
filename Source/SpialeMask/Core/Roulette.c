@@ -445,6 +445,52 @@ int NullifyRoulette(Roulette* pRoulette
 
 
 /*!
+ * 偏移轮盘结构
+ * @param[in,out] pRoulette 轮盘结构指针
+ * @param[in]     uiOffsetCurrent 当前轮齿偏移量
+ * @param[in]     uiOffsetAnchor 锚点轮齿偏移量
+ * @return 标识码
+*/
+int OffsetRoulette(Roulette* pRoulette
+                   , size_t uiOffsetCurrent
+                   , size_t uiOffsetAnchor)
+{
+    /*检测指针*/
+    if(NULL == pRoulette)
+    {
+        return APP_FLAG_FAILURE;
+    }
+
+    /*检测轮齿*/
+    if(0x00 == pRoulette->m_uiCount)
+    {
+        return APP_FLAG_SUCCESS;
+    }
+
+    /*偏移当前轮齿*/
+    {
+        uiOffsetCurrent %= pRoulette->m_uiCount;
+        while(0x00 < uiOffsetCurrent--)
+        {
+            pRoulette->m_pCurrent = pRoulette->m_pCurrent->m_pForward;
+        }
+    }
+
+    /*偏移锚点轮齿*/
+    {
+        uiOffsetAnchor %= pRoulette->m_uiCount;
+        while(0x00 < uiOffsetAnchor--)
+        {
+            pRoulette->m_pAnchor = pRoulette->m_pAnchor->m_pForward;
+        }
+    }
+
+    /*返回成功*/
+    return APP_FLAG_SUCCESS;
+}
+
+
+/*!
  * 删除轮盘结构
  * @param[in,out] paRoulette 轮盘结构指针地址
  * @return 标识码
