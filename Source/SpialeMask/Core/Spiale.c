@@ -586,17 +586,16 @@ int SpinSpiale(Spiale* pSpiale
 
     do
     {
-        /*条件: 不忽略无效性, 并且当前轮盘无效*/
-        if((APP_STATE_FALSE == ucIgnoreNullity)
-           && (APP_STATE_TRUE == pRoulette->m_pRoulette->m_ucIsNullity))
+        /*条件: 不存在轮齿; 或者; 不忽略无效性, 并且当前轮盘无效*/
+        if((0x00 == pRoulette->m_pRoulette->m_uiCount)
+           || ((APP_STATE_FALSE == ucIgnoreNullity) && (APP_STATE_TRUE == pRoulette->m_pRoulette->m_ucIsNullity)))
         {
             /*忽略轮盘*/
         }
         else
         {
-            /*轮盘中当前轮齿*/
+            /*轮盘中当前轮齿: 有轮齿数量担保(非NULL)*/
             const CogChain* pCog = pRoulette->m_pRoulette->m_pCurrent;
-            if(NULL != pCog)
             {
                 /*条件: 不忽略无效性, 并且当前轮盘无效*/
                 if((APP_STATE_FALSE == ucIgnoreNullity)
@@ -613,23 +612,39 @@ int SpinSpiale(Spiale* pSpiale
                         /*获取齿轮内容快照错误*/
                     }
                 }
+            }
 
-                /*轮盘推进条件: 起点轮盘, 或轮盘推进标识开启*/
-                if((pSpiale->m_pAnchor == pRoulette)
-                    || (APP_STATE_TRUE == ucPropelling))
+            /*轮盘推进条件: 锚点轮盘*/
+            if(pSpiale->m_pAnchor == pRoulette)
+            {
+                pRoulette->m_pRoulette->m_pCurrent = pCog->m_pBackward;
+
+                /*轮盘推进标识开启条件: 锚点轮盘旋转后, 当前轮齿 回归于 锚点*/
+                if(pRoulette->m_pRoulette->m_pAnchor == pRoulette->m_pRoulette->m_pCurrent)
                 {
-                    pRoulette->m_pRoulette->m_pCurrent = pCog->m_pBackward;
+                    ucPropelling = APP_STATE_TRUE;
+                }
+                else
+                {
+                    ucPropelling = APP_STATE_FALSE;
                 }
             }
 
-            /*轮盘推进标识开启条件: 轮盘中当前轮齿 回归于 锚点*/
-            if(pRoulette->m_pRoulette->m_pAnchor == pRoulette->m_pRoulette->m_pCurrent)
+            /*轮盘推进条件: 非锚点轮盘, 并且轮盘推进标识开启*/
+            if((pSpiale->m_pAnchor != pRoulette)
+               && (APP_STATE_TRUE == ucPropelling))
             {
-                ucPropelling = APP_STATE_TRUE;
-            }
-            else
-            {
-                ucPropelling = APP_STATE_FALSE;
+                pRoulette->m_pRoulette->m_pCurrent = pCog->m_pBackward;
+
+                /*轮盘推进标识开启条件: 非锚点轮盘旋转后, 当前轮齿 回归于 锚点*/
+                if(pRoulette->m_pRoulette->m_pAnchor == pRoulette->m_pRoulette->m_pCurrent)
+                {
+                    ucPropelling = APP_STATE_TRUE;
+                }
+                else
+                {
+                    ucPropelling = APP_STATE_FALSE;
+                }
             }
 
             /*轮轴旋转结束条件: 轮轴上所有轮盘中当前轮齿 回归于 锚点*/

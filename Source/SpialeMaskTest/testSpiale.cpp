@@ -545,17 +545,33 @@ void testSpialeAPI()
 
 
 
+    //,"v3"
+    //,"t2","t3"
+    //,"u2","u3"
+    //
+
+
     Spiale* pSpialeTUVW = NULL;
     Spiale* pCloneSpialeTUVW = NULL;
     {
         iCode = NewSpiale(&pSpialeTUVW);
         {
             RouletteChain* pRouletteChainT = NULL;
-            const char* sz[] = { "t","y" };
+            const char* sz[] = { "t" };
             iCode = MoldingRouletteChain(&pRouletteChainT, sizeof(sz) / sizeof(sz[0x00]), sz);
+
+            RouletteChain* pRouletteChainV = NULL;
+            const char* sz3[] = { "v","v2" };
+            iCode = MoldingRouletteChain(&pRouletteChainV, sizeof(sz3) / sizeof(sz3[0x00]), sz3);
+
+            RouletteChain* pRouletteChainW = NULL;
+            const char* sz4[] = { "w","w2","w3"};
+            iCode = MoldingRouletteChain(&pRouletteChainW, sizeof(sz4) / sizeof(sz4[0x00]), sz4);
+
             RouletteChain* pRouletteChainU = NULL;
-            const char* sz2[] = { "u","x" };
+            const char* sz2[] = { "u" };
             iCode = MoldingRouletteChain(&pRouletteChainU, sizeof(sz2) / sizeof(sz2[0x00]), sz2);
+
             iCode = JoinRouletteChain(pRouletteChainT, pRouletteChainU);
 
             LOG_INFO("Test API JoinRouletteChain2Spiale(t,u) ...");
@@ -565,26 +581,15 @@ void testSpialeAPI()
             printSpiale(pSpialeTUVW);
 
             {
-                RouletteChain* pRouletteChainV = NULL;
-                const char* sz3[] = { "v","9" };
-                iCode = MoldingRouletteChain(&pRouletteChainV, sizeof(sz3) / sizeof(sz3[0x00]), sz3);
-                RouletteChain* pRouletteChainW = NULL;
-                const char* sz4[] = { "w","z" };
-                iCode = MoldingRouletteChain(&pRouletteChainW, sizeof(sz4) / sizeof(sz4[0x00]), sz4);
-                InsertRouletteChain(pRouletteChainV, pRouletteChainW);
+                //iCode = InsertRouletteChain(pRouletteChainV, pRouletteChainW);
 
                 LOG_INFO("Test API JoinRouletteChain2Spiale(v,w) ...");
                 iCode = JoinRouletteChain2Spiale(pSpialeTUVW, pRouletteChainV);
             }
+
         }
         LOG_INFO("======= 4 ======");
         printSpiale(pSpialeTUVW);
-
-        LOG_INFO("Test API CloneSpiale(t,u,v,w) ...");
-        {
-            iCode = CloneSpiale(&pCloneSpialeTUVW, pSpialeTUVW);
-            printSpiale(pCloneSpialeTUVW);
-        }
 
 
         LOG_INFO("Test API MeasureSpiale() ...");
@@ -602,6 +607,12 @@ void testSpialeAPI()
                 } while(APP_FLAG_SM_SPIN_OVER != iCode);
                 free(sz);
             }
+        }
+
+        LOG_INFO("Test API CloneSpiale(t,u,v,w) ...");
+        {
+            iCode = CloneSpiale(&pCloneSpialeTUVW, pSpialeTUVW);
+            printSpiale(pCloneSpialeTUVW);
         }
 
         LOG_INFO("Test API DeleteSpiale() ...");
