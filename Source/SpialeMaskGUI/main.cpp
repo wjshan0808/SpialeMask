@@ -1,4 +1,4 @@
-#include "SpialeMaskGUI.h"
+#include "Gui/Gui.h"
 #include <QApplication>
 
 
@@ -6,11 +6,10 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    /**/
-    CSpialeMaskGUI oSpialeMaskGUI;
+    /*界面*/
+    CGui oGui;
     {
-
-        oSpialeMaskGUI.show();
+        oGui.Setup(argc, argv);
     }
 
     /**/

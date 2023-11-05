@@ -1,11 +1,17 @@
 ## 详情帮助搜索qmake Manual下 Variables, Test Functions 关键字
 
 
+TEMPLATE = app
+#TARGET = SpialeMask
+
 ##
-QT += core gui
+QT += gui
+QT += core
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 
+CONFIG -= console
+CONFIG += app_bundle
 CONFIG -= c99
 CONFIG += c11
 QMAKE_CFLAGS -= -std=c99
@@ -48,18 +54,25 @@ DESTDIR += ../../Release
 
 ##
 SOURCES += \
-    SpialeMaskGUI.cpp \
+    Core/SpialeMaskGUI.cpp \
+    Gui/Gui.cpp \
+    Gui/Kit/Movable.cpp \
     main.cpp
 
 HEADERS += \
-    SpialeMaskGUI.h
+    Core/SpialeMaskGUI.h \
+    Gui/Gui.h \
+    Gui/Kit/Movable.h
 
 FORMS += \
-    SpialeMaskGUI.ui
+    Core/SpialeMaskGUI.ui
 
+DISTFILES +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+
 

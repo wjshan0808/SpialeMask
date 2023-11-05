@@ -81,7 +81,8 @@ HEADERS += \
 
 DISTFILES += \
     QmakePostLink.bat \
-    QmakePostLink.sh
+    QmakePostLink.sh \
+    ToDo.txt
 
 
 # Default rules for deployment.

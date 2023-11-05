@@ -3,20 +3,20 @@
 
 #include "SpialeMask.h"
 
-/*!
- * 程序主类
-*/
-CSpialeMaskGUI::CSpialeMaskGUI(QWidget* pParent) :
-    QWidget(pParent)
-    , m_pUI(new Ui::CSpialeMaskGUI)
-{
-    m_pUI->setupUi(this);
 
-    /*检测插件*/
-    SpialeMaskCheck();
+/*!
+ * 程序主界面
+*/
+CSpialeMaskGUI::CSpialeMaskGUI(QWidget* pParent)
+    : QWidget(pParent)
+    , m_pGUI(new Ui::CSpialeMaskGUI)
+{
+    /*构建程序*/
+    Constructor();
 }
 CSpialeMaskGUI::~CSpialeMaskGUI()
 {
+    /*程序析构*/
     Deconstructor();
 }
 
@@ -30,6 +30,7 @@ void CSpialeMaskGUI::onSpialeMaskChecked()
 {
     //this->setWindowTitle(QString(" %1 ...").arg(foo(1,2)));
 }
+
 /*!
  * 插件检测
 */
@@ -42,8 +43,20 @@ void CSpialeMaskGUI::SpialeMaskCheck()
 
 }
 
+
 /*!
- * 资源析构
+ * 构建程序
+*/
+void CSpialeMaskGUI::Constructor()
+{
+    /**/
+    m_pGUI->setupUi(this);
+
+    /*检测插件*/
+    SpialeMaskCheck();
+}
+/*!
+ * 程序析构
 */
 void CSpialeMaskGUI::Deconstructor()
 {
@@ -52,9 +65,10 @@ void CSpialeMaskGUI::Deconstructor()
     {
         delete m_pbtnCheck;
     }
+
     /*UI对象*/
-    if(nullptr != m_pUI)
+    if(nullptr != m_pGUI)
     {
-        delete m_pUI;
+        delete m_pGUI;
     }
 }
