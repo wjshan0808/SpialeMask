@@ -29,20 +29,22 @@ public:
 
 public:
     /*!
-     * 安装对象
+     * 安装
+     * @param pObject 移动对象
     */
     void Install(QObject* pObject);
     /*!
-     * 移除对象
+     * 移除
+     * @param pObject 移动对象
     */
     void Remove(QObject* pObject);
 
 
 protected:
     /*!
-     * 事件过滤器
+     * 事件过滤
     */
-    bool eventFilter(QObject* pObject, QEvent* pEvent) override;
+    bool eventFilter(QObject* pObject, QEvent* pEvent) Q_DECL_OVERRIDE;
 
 
 private:

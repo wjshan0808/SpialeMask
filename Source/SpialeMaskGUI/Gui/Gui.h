@@ -21,6 +21,13 @@ public:
     ~CGui();
 
 
+public Q_SLOTS:
+    /*!
+     * 窗体最大改变槽
+     * @param bMaximized 最大状态
+    */
+    void slotMaximizedChanged(bool bMaximized);
+
 public:
     /*!
      * 设置程序界面
@@ -29,7 +36,7 @@ public:
 
 
 private:
-    /*程序主界面*/
+    /*程序界面*/
     CSpialeMaskGUI m_oSpialeMaskGUI;
 
 };

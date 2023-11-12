@@ -1,19 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>CSpialeMaskGUI</class>
- <widget class="QWidget" name="CSpialeMaskGUI">
+ <widget class="QMainWindow" name="CSpialeMaskGUI">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>596</width>
-    <height>381</height>
+    <width>612</width>
+    <height>386</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>SpialeMask</string>
   </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="CTitleBar" name="oTitleBar" native="true"/>
+    </item>
+    <item row="0" column="2">
+     <widget class="CTrcBar" name="oTrcBar" native="true"/>
+    </item>
+    <item row="0" column="1">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0" colspan="3">
+     <widget class="QStackedWidget" name="oStackedWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>1</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="oStatusBar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CTrcBar</class>
+   <extends>QWidget</extends>
+   <header>Core/TrcBar.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CTitleBar</class>
+   <extends>QWidget</extends>
+   <header>Core/TitleBar.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

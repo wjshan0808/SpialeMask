@@ -30,7 +30,8 @@ CMovable* CMovable::Instance()
 
 
 /*!
- * 安装对象
+ * 安装
+ * @param pObject 移动对象
 */
 void CMovable::Install(QObject* pObject)
 {
@@ -53,7 +54,8 @@ void CMovable::Install(QObject* pObject)
     }
 }
 /*!
- * 移除对象
+ * 移除
+ * @param pObject 移动对象
 */
 void CMovable::Remove(QObject* pObject)
 {
@@ -78,7 +80,7 @@ void CMovable::Remove(QObject* pObject)
 
 
 /*!
- * 事件过滤器
+ * 事件过滤
 */
 bool CMovable::eventFilter(QObject* pObject, QEvent* pEvent)
 {

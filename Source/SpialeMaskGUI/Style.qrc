@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Style/FontAwesome.ico</file>
+        <file>Style/Css/TitleBar.css</file>
+    </qresource>
+</RCC>
