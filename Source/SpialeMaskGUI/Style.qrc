@@ -2,5 +2,12 @@
     <qresource prefix="/">
         <file>Style/FontAwesome.ico</file>
         <file>Style/Css/TitleBar.css</file>
+        <file>Style/Css/TrcBar.css</file>
+        <file>Style/Css/Gui.css</file>
+        <file>Style/Css/Viewer.css</file>
+        <file>Style/Css/Pages/Help.css</file>
+        <file>Style/Css/Pages/Setting.css</file>
+        <file>Style/Img/gray.png</file>
+        <file>Style/Img/light.png</file>
     </qresource>
 </RCC>

@@ -1,0 +1,8 @@
+/*Help 样式*/
+/*top right bottom left*/
+
+
+QWidget *  {
+    background-color: white;
+}
+

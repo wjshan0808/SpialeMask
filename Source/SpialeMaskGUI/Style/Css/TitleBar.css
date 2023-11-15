@@ -1,3 +1,54 @@
-function func() {
+/*TitleBar 样式*/
+/*top right bottom left*/
 
+QLabel {
+    background: transparent;
 }
+
+QLabel#lblIcon {
+    border: none;
+    margin: 2px 0px 0px 2px;
+    padding: 0px;
+}
+QLabel#lblTitle {
+    border: none;
+    margin: 0px 4px 0px 2px;
+    padding: 0px;
+    color: #404040;
+    font: 12pt;
+    font-weight: bold;
+    font-family: 'Microsoft YaHei';
+}
+
+
+QPushButton {
+    border: 2px solid #169CE4;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    margin: 0px;
+    padding: 12px 20px;
+    color: #169CE4;
+    font: 23px 'SimSun'; /*宋体*/
+    font-weight: bold;
+    background-color: #E3F1FA;
+    /*
+    min-width: 61px;
+    min-height: 38px;
+    max-width: 58px;
+    max-height: 36px;*/
+}
+
+QPushButton:hover, QPushButton:checked {
+    border: 0px;
+    background-color: white;
+    /*
+    border-bottom: 2px solid #169CE4;
+    border-bottom-width: 2px;
+    border-bottom-color: #169CE4;*/
+}
+QPushButton:pressed {
+    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:1, fx:0.5, fy:0.5, stop:0 #E3F1FA, stop:1 #A6F1FA);
+}
+
+

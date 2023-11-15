@@ -5,6 +5,9 @@
 #include <QIcon>
 #include <QPixmap>
 #include <QSize>
+#include <QFile>
+#include <QList>
+#include <QPushButton>
 
 
 /*!
@@ -57,7 +60,7 @@ void CTitleBar::slotButtonClicked(bool bChecked)
     Q_UNUSED(bChecked);
 
     /*发送者*/
-    const QPushButton* pBtn = qobject_cast<const QPushButton*>(sender());
+    QPushButton* pBtn = qobject_cast<QPushButton*>(sender());
     if(Q_NULLPTR == pBtn)
     {
         return;
@@ -78,6 +81,16 @@ void CTitleBar::slotButtonClicked(bool bChecked)
         Q_EMIT signalTitleBarClicked(Help);
     }
     else { }
+
+    /*按钮*/
+    {
+        QList<QPushButton*> lstButtons = findChildren<QPushButton*>();
+        foreach(QPushButton* pItem, lstButtons)
+        {
+            pItem->setChecked(false);
+        }
+        pBtn->setChecked(true);
+    }
 }
 
 
@@ -90,18 +103,40 @@ void CTitleBar::Constructor()
 
     /*配置按钮*/
     {
+        m_pGui->btnSetting->setFlat(true);
+        m_pGui->btnSetting->setCheckable(true);
         m_pGui->btnSetting->setText(QString::fromUtf8("配置"));
         m_pGui->btnSetting->setToolTip(QString::fromUtf8("配置"));
-        //m_pGui->btnSetting->setIcon(qApp->style()->standardIcon(QStyle::));
         connect(m_pGui->btnSetting, &QPushButton::clicked, this, &CTitleBar::slotButtonClicked);
     }
 
     /*帮助按钮*/
     {
-        m_pGui->btnHelp->setText(QString::fromUtf8(""));
+        m_pGui->btnHelp->setFlat(true);
+        m_pGui->btnHelp->setCheckable(true);
+        m_pGui->btnHelp->setText(QString::fromUtf8("帮助"));
         m_pGui->btnHelp->setToolTip(QString::fromUtf8("帮助"));
-        m_pGui->btnHelp->setIcon(qApp->style()->standardIcon(QStyle::SP_TitleBarContextHelpButton));
+        /*m_pGui->btnHelp->setIcon(qApp->style()->standardIcon(QStyle::));*/
         connect(m_pGui->btnHelp, &QPushButton::clicked, this, &CTitleBar::slotButtonClicked);
+    }
+
+    /*默认选中*/
+    {
+        QPushButton* pBtn = qobject_cast<QPushButton*>(m_pGui->horizontalLayout->itemAt(0x02)->widget());
+        if(Q_NULLPTR != pBtn)
+        {
+            pBtn->setChecked(true);
+        }
+    }
+
+    /*样式*/
+    {
+        QFile oTitleBar(QString::fromUtf8(":/Style/Css/TitleBar.css"));
+        if(oTitleBar.open(QFile::ReadOnly))
+        {
+            setStyleSheet(QString(oTitleBar.readAll()));
+            oTitleBar.close();
+        }
     }
 
 }

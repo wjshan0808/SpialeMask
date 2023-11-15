@@ -1,5 +1,7 @@
 #include "Setting.h"
 #include "ui_Setting.h"
+#include <QString>
+#include <QFile>
 
 
 /*!
@@ -24,10 +26,21 @@ CSetting::~CSetting()
 void CSetting::Constructor()
 {
     /**/
-    m_pGui->setupUi(this);
+    {
+        m_pGui->setupUi(this);
+    }
 
     /**/
 
+    /*样式*/
+    {
+        QFile oSetting(QString::fromUtf8(":/Style/Css/Pages/Setting.css"));
+        if(oSetting.open(QFile::ReadOnly))
+        {
+            setStyleSheet(QString(oSetting.readAll()));
+            oSetting.close();
+        }
+    }
 }
 /*析构*/
 void CSetting::Deconstructor()

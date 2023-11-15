@@ -1,5 +1,7 @@
 #include "Viewer.h"
 #include "ui_Viewer.h"
+#include <QString>
+#include <QFile>
 
 
 /*!
@@ -34,6 +36,16 @@ void CViewer::Constructor()
         delete pTitleBarOld;
     }*/
 
+
+    /*样式*/
+    {
+        QFile oViewer(QString::fromUtf8(":/Style/Css/Viewer.css"));
+        if(oViewer.open(QFile::ReadOnly))
+        {
+            setStyleSheet(QString(oViewer.readAll()));
+            oViewer.close();
+        }
+    }
 }
 /*析构*/
 void CViewer::Deconstructor()

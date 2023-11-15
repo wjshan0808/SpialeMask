@@ -1,5 +1,7 @@
 #include "Help.h"
 #include "ui_Help.h"
+#include <QString>
+#include <QFile>
 
 
 /*!
@@ -24,10 +26,21 @@ CHelp::~CHelp()
 void CHelp::Constructor()
 {
     /**/
-    m_pGui->setupUi(this);
+    {
+        m_pGui->setupUi(this);
+    }
 
     /**/
 
+    /*样式*/
+    {
+        QFile oHelp(QString::fromUtf8(":/Style/Css/Pages/Help.css"));
+        if(oHelp.open(QFile::ReadOnly))
+        {
+            setStyleSheet(QString(oHelp.readAll()));
+            oHelp.close();
+        }
+    }
 }
 /*析构*/
 void CHelp::Deconstructor()

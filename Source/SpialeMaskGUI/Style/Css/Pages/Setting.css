@@ -1,0 +1,27 @@
+/*Setting 样式*/
+/*top right bottom left*/
+
+
+QWidget *  {
+    background-color: white;
+}
+
+QWidget#oLeftSettingWidget {
+    background: #293A4C;
+}
+
+QWidget#oLeftSettingWidget QToolButton {
+    border: none;
+    margin: 0px;
+    color: #799798;
+    font: 16px 'FangSong'; /*仿宋体*/
+    font-weight: bold;
+    background-color: transparent;
+}
+QToolButton:hover, QToolButton:checked {
+    background-color: #E3F1FA;
+    border-bottom: 2px solid #169CE4;
+    /*background-color: #E3F1FA;
+    border-bottom-width: 2px;
+    border-bottom-color: #169CE4;*/
+}

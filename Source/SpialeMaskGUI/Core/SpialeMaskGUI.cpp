@@ -86,11 +86,23 @@ void CSpialeMaskGUI::setupThis()
     /*无边框标识*/
     {
         setWindowFlags(Qt::FramelessWindowHint);
+        //setAttribute(Qt::WA_TranslucentBackground);
+        //m_pGui->centralWidget->setAttribute(Qt::WA_TranslucentBackground);
     }
 
     /*底部视图*/
     {
         addDockWidget(Qt::DockWidgetArea::BottomDockWidgetArea, &m_oViewer);
+    }
+
+    /*样式*/
+    {
+        QFile oGui(QString::fromUtf8(":/Style/Css/Gui.css"));
+        if(oGui.open(QFile::ReadOnly))
+        {
+            setStyleSheet(QString(oGui.readAll()));
+            oGui.close();
+        }
     }
 }
 

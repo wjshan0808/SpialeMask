@@ -3,6 +3,10 @@
 #include <QDebug>
 #include <QStyle>
 #include <QString>
+#include <QFile>
+#include <QUrl>
+#include <QLatin1String>
+#include <QDesktopServices>
 
 
 /*!
@@ -54,8 +58,13 @@ void CTrcBar::slotButtonClicked(bool bChecked)
         return;
     }
 
+    /*FAQ按钮*/
+    if(m_pGui->btnFAQ == pBtn)
+    {
+        QDesktopServices::openUrl(QUrl(QLatin1String("https://github.com/wjshan0808/SpialeMask")));
+    }
     /*最小化按钮*/
-    if(m_pGui->btnMin == pBtn)
+    else if(m_pGui->btnMin == pBtn)
     {
         m_pOperator->showMinimized();
     }
@@ -65,7 +74,7 @@ void CTrcBar::slotButtonClicked(bool bChecked)
         /*已正常状态*/
         if(Qt::WindowNoState == m_pOperator->windowState())
         {
-            m_pGui->btnMax->setToolTip(QString::fromUtf8("正常化"));
+            m_pGui->btnMax->setToolTip(QString::fromUtf8("还原"));
             m_pGui->btnMax->setIcon(qApp->style()->standardIcon(QStyle::SP_TitleBarNormalButton));
             m_pOperator->showMaximized();
         }
@@ -91,10 +100,21 @@ void CTrcBar::slotButtonClicked(bool bChecked)
 void CTrcBar::Constructor()
 {
     /**/
-    m_pGui->setupUi(this);
+    {
+        m_pGui->setupUi(this);
+    }
 
+    /*FAQ按钮*/
+    {
+        m_pGui->btnFAQ->setFlat(true);
+        m_pGui->btnFAQ->setText(QString::fromUtf8(""));
+        m_pGui->btnFAQ->setToolTip(QString::fromUtf8("FAQ"));
+        m_pGui->btnFAQ->setIcon(qApp->style()->standardIcon(QStyle::SP_TitleBarContextHelpButton));
+        connect(m_pGui->btnFAQ, &QPushButton::clicked, this, &CTrcBar::slotButtonClicked);
+    }
     /*最小化按钮*/
     {
+        m_pGui->btnMin->setFlat(true);
         m_pGui->btnMin->setText(QString::fromUtf8(""));
         m_pGui->btnMin->setToolTip(QString::fromUtf8("最小化"));
         m_pGui->btnMin->setIcon(qApp->style()->standardIcon(QStyle::SP_TitleBarMinButton));
@@ -102,6 +122,7 @@ void CTrcBar::Constructor()
     }
     /*最大化按钮*/
     {
+        m_pGui->btnMax->setFlat(true);
         m_pGui->btnMax->setText(QString::fromUtf8(""));
         m_pGui->btnMax->setToolTip(QString::fromUtf8("最大化"));
         m_pGui->btnMax->setIcon(qApp->style()->standardIcon(QStyle::SP_TitleBarMaxButton));
@@ -109,10 +130,21 @@ void CTrcBar::Constructor()
     }
     /*关闭按钮*/
     {
+        m_pGui->btnClose->setFlat(true);
         m_pGui->btnClose->setText(QString::fromUtf8(""));
         m_pGui->btnClose->setToolTip(QString::fromUtf8("关闭"));
         m_pGui->btnClose->setIcon(qApp->style()->standardIcon(QStyle::SP_TitleBarCloseButton));
         connect(m_pGui->btnClose, &QPushButton::clicked, this, &CTrcBar::slotButtonClicked);
+    }
+
+    /*样式*/
+    {
+        QFile oTrcBar(QString::fromUtf8(":/Style/Css/TrcBar.css"));
+        if(oTrcBar.open(QFile::ReadOnly))
+        {
+            setStyleSheet(QString(oTrcBar.readAll()));
+            oTrcBar.close();
+        }
     }
 
 }
