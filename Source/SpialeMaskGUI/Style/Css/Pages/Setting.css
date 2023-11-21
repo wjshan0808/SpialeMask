@@ -10,18 +10,36 @@ QWidget#oLeftSettingWidget {
     background: #293A4C;
 }
 
-QWidget#oLeftSettingWidget QToolButton {
-    border: none;
+QWidget#oLeftSettingWidget>QToolButton {
+    border: 0px;
+    border-right: 2px solid #40A7E3;
     margin: 0px;
     color: #799798;
     font: 16px 'FangSong'; /*仿宋体*/
     font-weight: bold;
     background-color: transparent;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    min-width: 86px;
+
+    /*
+    image: url(:/Style/Img/gray.png);
+    image-position: top;
+
+    background: url(:/Style/Img/gray.png) top no-repeat;
+    background-image: url(:/Style/Img/gray.png);
+    background-origin: content;
+    background-position: top;
+    background-repeat: no-repeat;
+
+    qproperty-icon: url(:/Style/Img/light.png) center, url(:/Style/Img/gray.png) pressed;
+    qproperty-iconSize: 30px 30px;*/
 }
-QToolButton:hover, QToolButton:checked {
-    background-color: #E3F1FA;
-    border-bottom: 2px solid #169CE4;
-    /*background-color: #E3F1FA;
-    border-bottom-width: 2px;
-    border-bottom-color: #169CE4;*/
+
+QWidget#oLeftSettingWidget>QToolButton:hover, QWidget#oLeftSettingWidget>QToolButton:checked, QWidget#oLeftSettingWidget>QToolButton:pressed {
+    border-right: 2px solid #FFFFFF;
+    color: #4CB9FA;
+    background-color: #17212B;
 }
+
+

@@ -31,6 +31,12 @@
    </property>
    <item>
     <widget class="QWidget" name="oLeftSettingWidget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
        <number>0</number>
@@ -48,12 +54,16 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QToolButton" name="toolButton">
+       <widget class="QToolButton" name="btnA">
         <property name="text">
          <string>PushButton</string>
         </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="btnB">
+        <property name="text">
+         <string>PushButton</string>
         </property>
        </widget>
       </item>

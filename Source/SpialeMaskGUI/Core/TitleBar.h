@@ -6,8 +6,6 @@
 #include <QString>
 
 
-
-
 /*!
  * 标题栏界面类
 */

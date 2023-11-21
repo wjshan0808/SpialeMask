@@ -115,6 +115,7 @@ bool CMovable::eventFilter(QObject* pObject, QEvent* pEvent)
         {
             m_bMovable = false;
         }
+        else { }
 
         /*事件过滤*/
         return true;
