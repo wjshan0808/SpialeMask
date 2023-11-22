@@ -25,7 +25,7 @@ class CSetting : public QWidget
 
 public:
     explicit CSetting(QWidget* pParent = nullptr);
-    ~CSetting();    
+    ~CSetting();
 
     /*!
      * @brief 菜单事件

@@ -6,3 +6,43 @@ QWidget *  {
     background-color: white;
 }
 
+QWidget#oLeftHelpWidget {
+    background: #293A4C;
+}
+
+QWidget#oLeftHelpWidget>QPushButton {
+    border: 0px;
+    border-right: 2px solid #40A7E3;
+    margin: 0px;
+    color: #799798;
+    font: 16px 'FangSong'; /*仿宋体*/
+    font-weight: bold;
+    background-color: transparent;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    min-width: 86px;
+    min-height: 50px;
+    background-image: url(:/Style/Img/gray.png);
+    background-origin: content;
+    background-position: top;
+    background-repeat: no-repeat;
+    text-align: bottom;
+
+    /*
+    image: url(:/Style/Img/gray.png);
+    image-position: top;
+
+    background: url(:/Style/Img/gray.png) top no-repeat;
+
+    qproperty-icon: url(:/Style/Img/light.png) center, url(:/Style/Img/gray.png) pressed;
+    qproperty-iconSize: 30px 30px;*/
+}
+
+QWidget#oLeftHelpWidget>QPushButton:hover, QWidget#oLeftHelpWidget>QPushButton:checked, QWidget#oLeftHelpWidget>QPushButton:pressed {
+    border-right: 2px solid #FFFFFF;
+    color: #4CB9FA;
+    background-color: #17212B;
+    background-image: url(:/Style/Img/light.png);
+}
+
+

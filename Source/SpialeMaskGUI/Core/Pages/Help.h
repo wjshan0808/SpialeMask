@@ -25,6 +25,33 @@ public:
     explicit CHelp(QWidget* pParent = nullptr);
     ~CHelp();
 
+    /*!
+     * @brief 菜单事件
+    */
+    enum MenuEvent : int
+    {
+        None,
+        /*信息*/
+        Info = 0x01,
+        /*关于*/
+        About = 0x02,
+    };
+
+Q_SIGNALS:
+    /*!
+     * @brief 菜单事件信号
+     * @param iEvent 事件
+    */
+    void signalHelpMenuClicked(int iEvent);
+
+
+public Q_SLOTS:
+    /*!
+     * @brief 按钮点击
+     * @param bChecked 选中状态
+    */
+    void slotButtonClicked(bool bChecked);
+
 
 private:
     /*构建*/
